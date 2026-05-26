@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"mod":["extension","validation"],"struct":["Category","CategoryBuilder","Channel","ChannelBuilder","Cloud","CloudBuilder","Enclosure","EnclosureBuilder","Guid","GuidBuilder","Image","ImageBuilder","Item","ItemBuilder","Source","SourceBuilder","TextInput","TextInputBuilder"]};
