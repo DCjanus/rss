@@ -222,8 +222,8 @@ impl Validate for Image {
         if let Some(height) = self.height() {
             let height = height.parse::<i64>()?;
             validate!(
-                (0..=144).contains(&height),
-                "Image height is not between 0 and 144"
+                (0..=400).contains(&height),
+                "Image height is not between 0 and 400"
             );
         }
 
