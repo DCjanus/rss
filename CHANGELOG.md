@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Update `quick-xml` to 0.42.
+- Note: `quick-xml` 0.42 raises the effective minimum Rust version to 1.86.
+
 ## 2.1.1 - 2026-09-06
 
 - Fix image height validation to accept values up to the RSS 2.0 limit of 400 pixels. [`#194`](https://github.com/rust-syndication/rss/pull/194)

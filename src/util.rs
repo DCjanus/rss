@@ -18,18 +18,17 @@ use quick_xml::XmlVersion;
 use crate::error::Error;
 
 pub(crate) fn decode<'s, B: BufRead>(
-    bytes: &'s [u8],
-    reader: &Reader<B>,
+    text: &'s str,
+    _reader: &Reader<B>,
 ) -> Result<Cow<'s, str>, Error> {
-    let text = reader.decoder().decode(bytes)?;
-    Ok(text)
+    Ok(Cow::Borrowed(text))
 }
 
 pub(crate) fn attr_value<'s, B: BufRead>(
     attr: &'s Attribute<'s>,
-    reader: &Reader<B>,
+    _reader: &Reader<B>,
 ) -> Result<Cow<'s, str>, Error> {
-    let value = attr.decoded_and_normalized_value(XmlVersion::Implicit1_0, reader.decoder())?;
+    let value = attr.normalized_value(XmlVersion::Implicit1_0)?;
     Ok(value)
 }
 
@@ -48,23 +47,22 @@ pub fn element_text<R: BufRead>(reader: &mut Reader<R>) -> Result<Option<String>
                 skip(element.name(), reader)?;
             }
             Event::Text(element) => {
-                let decoded = element.decode()?;
-                content.push_str(decoded.as_ref());
+                content.push_str(element.as_ref());
             }
             Event::GeneralRef(gref) => {
-                let entity = gref.decode()?;
-                if let Some(resolved_entity) = resolve_predefined_entity(&entity) {
+                let entity = gref.as_ref();
+                if let Some(resolved_entity) = resolve_predefined_entity(entity) {
                     content.push_str(resolved_entity);
                 } else if let Some(ch) = gref.resolve_char_ref()? {
                     content.push(ch);
                 } else {
                     content.push('&');
-                    content.push_str(&entity);
+                    content.push_str(entity);
                     content.push(';');
                 }
             }
             Event::CData(element) => {
-                content.push_str(decode(&element, reader)?.as_ref());
+                content.push_str(decode(element.as_ref(), reader)?.as_ref());
             }
             Event::End(_) | Event::Eof => break,
             _ => {}
