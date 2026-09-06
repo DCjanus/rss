@@ -7,9 +7,10 @@
 
 use std::collections::BTreeMap;
 use std::fmt::Display;
-use std::io::{BufRead, Write};
+use std::io::{self, BufRead, Read, Write};
 use std::str::{self, FromStr};
 
+use quick_xml::encoding::DecodingReader;
 use quick_xml::events::attributes::Attributes;
 use quick_xml::events::{BytesDecl, BytesEnd, BytesStart, Event};
 use quick_xml::Error as XmlError;
@@ -33,6 +34,137 @@ use crate::item::Item;
 use crate::textinput::TextInput;
 use crate::toxml::{ToXml, WriterExt};
 use crate::util::{decode, element_text, skip};
+
+enum ReaderInput<R> {
+    Raw(R),
+    Utf16(Utf16Reader<R>),
+}
+
+impl<R: BufRead> Read for ReaderInput<R> {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+        match self {
+            Self::Raw(reader) => reader.read(buf),
+            Self::Utf16(reader) => reader.read(buf),
+        }
+    }
+}
+
+impl<R: BufRead> BufRead for ReaderInput<R> {
+    fn fill_buf(&mut self) -> io::Result<&[u8]> {
+        match self {
+            Self::Raw(reader) => reader.fill_buf(),
+            Self::Utf16(reader) => reader.fill_buf(),
+        }
+    }
+
+    fn consume(&mut self, amount: usize) {
+        match self {
+            Self::Raw(reader) => reader.consume(amount),
+            Self::Utf16(reader) => reader.consume(amount),
+        }
+    }
+}
+
+struct Utf16Reader<R> {
+    inner: DecodingReader<R>,
+    pending: Vec<u8>,
+    declaration: Option<Vec<u8>>,
+}
+
+impl<R: BufRead> Utf16Reader<R> {
+    fn new(reader: R) -> Self {
+        Self {
+            inner: DecodingReader::new(reader),
+            pending: Vec::new(),
+            declaration: Some(Vec::new()),
+        }
+    }
+
+    fn prepare_declaration(&mut self) -> io::Result<()> {
+        let Some(declaration) = self.declaration.as_mut() else {
+            return Ok(());
+        };
+
+        loop {
+            let chunk = self.inner.fill_buf()?;
+            if chunk.is_empty() {
+                self.pending.append(declaration);
+                self.declaration = None;
+                return Ok(());
+            }
+
+            let length = chunk.len();
+            declaration.extend_from_slice(chunk);
+            self.inner.consume(length);
+
+            if declaration.len() >= 5 && !declaration.starts_with(b"<?xml") {
+                self.pending.append(declaration);
+                self.declaration = None;
+                return Ok(());
+            }
+
+            let Some(end) = declaration
+                .windows(2)
+                .position(|window| window == b"?>")
+                .map(|position| position + 2)
+            else {
+                continue;
+            };
+
+            let mut prefix = declaration.drain(..end).collect::<Vec<_>>();
+            let suffix = std::mem::take(declaration);
+            replace_utf16_declaration(&mut prefix);
+            self.pending.extend(prefix);
+            self.pending.extend(suffix);
+            self.declaration = None;
+            return Ok(());
+        }
+    }
+}
+
+impl<R: BufRead> Read for Utf16Reader<R> {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+        let input = self.fill_buf()?;
+        let length = input.len().min(buf.len());
+        buf[..length].copy_from_slice(&input[..length]);
+        self.consume(length);
+        Ok(length)
+    }
+}
+
+impl<R: BufRead> BufRead for Utf16Reader<R> {
+    fn fill_buf(&mut self) -> io::Result<&[u8]> {
+        self.prepare_declaration()?;
+        if self.pending.is_empty() {
+            self.inner.fill_buf()
+        } else {
+            Ok(&self.pending)
+        }
+    }
+
+    fn consume(&mut self, amount: usize) {
+        if !self.pending.is_empty() {
+            self.pending.drain(..amount.min(self.pending.len()));
+        } else {
+            self.inner.consume(amount);
+        }
+    }
+}
+
+fn replace_utf16_declaration(declaration: &mut Vec<u8>) {
+    for encoding in [b"UTF-16".as_slice(), b"utf-16".as_slice()] {
+        if let Some(position) = declaration
+            .windows(encoding.len())
+            .position(|window| window == encoding)
+        {
+            declaration.splice(
+                position..position + encoding.len(),
+                b"UTF-8".iter().copied(),
+            );
+            return;
+        }
+    }
+}
 
 /// Represents the channel of an RSS feed.
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -1032,7 +1164,11 @@ impl Channel {
     /// let reader: BufRead = ...;
     /// let channel = Channel::read_from(reader).unwrap();
     /// ```
-    pub fn read_from<R: BufRead>(reader: R) -> Result<Channel, Error> {
+    pub fn read_from<R: BufRead>(mut reader: R) -> Result<Channel, Error> {
+        let reader = match reader.fill_buf()? {
+            [0xFF, 0xFE, ..] | [0xFE, 0xFF, ..] => ReaderInput::Utf16(Utf16Reader::new(reader)),
+            _ => ReaderInput::Raw(reader),
+        };
         let mut reader = Reader::from_reader(reader);
         reader.config_mut().expand_empty_elements = true;
         let namespaces;
