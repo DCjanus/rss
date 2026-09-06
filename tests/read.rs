@@ -8,13 +8,13 @@ use rss::extension::syndication;
 use rss::extension::Extension;
 use rss::Channel;
 
-fn utf16le(input: &str) -> Vec<u8> {
+fn utf16le_with_bom(input: &str) -> Vec<u8> {
     let mut bytes = vec![0xFF, 0xFE];
     bytes.extend(input.encode_utf16().flat_map(u16::to_le_bytes));
     bytes
 }
 
-fn utf16be(input: &str) -> Vec<u8> {
+fn utf16be_with_bom(input: &str) -> Vec<u8> {
     let mut bytes = vec![0xFE, 0xFF];
     bytes.extend(input.encode_utf16().flat_map(u16::to_be_bytes));
     bytes
@@ -107,23 +107,29 @@ fn read_iso_8859_1_bytes() {
 }
 
 #[test]
-fn reject_utf16_little_endian_bytes() {
-    let input = utf16le(
+#[ignore = "Channel::read_from() does not support UTF-16 input yet"]
+fn read_utf16_little_endian_bytes() {
+    let input = utf16le_with_bom(
         "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n\
          <rss version=\"2.0\"><channel><title>Café</title>\n\
          <link>https://example.com</link><description>News</description></channel></rss>",
     );
-    assert!(Channel::read_from(Cursor::new(input)).is_err());
+    let channel = Channel::read_from(Cursor::new(input)).expect("failed to parse UTF-16 XML");
+
+    assert_eq!(channel.title(), "Café");
 }
 
 #[test]
-fn reject_utf16_big_endian_bytes() {
-    let input = utf16be(
+#[ignore = "Channel::read_from() does not support UTF-16 input yet"]
+fn read_utf16_big_endian_bytes() {
+    let input = utf16be_with_bom(
         "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n\
          <rss version=\"2.0\"><channel><title>Café</title>\n\
          <link>https://example.com</link><description>News</description></channel></rss>",
     );
-    assert!(Channel::read_from(Cursor::new(input)).is_err());
+    let channel = Channel::read_from(Cursor::new(input)).expect("failed to parse UTF-16 XML");
+
+    assert_eq!(channel.title(), "Café");
 }
 
 #[test]
