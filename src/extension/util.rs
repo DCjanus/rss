@@ -85,20 +85,20 @@ pub(crate) fn parse_extension_element<R: BufRead>(
                 items.push(ext);
             }
             Event::CData(element) => {
-                text.push_str(decode(&element, reader)?.as_ref());
+                text.push_str(decode(element.as_ref(), reader)?.as_ref());
             }
             Event::Text(element) => {
-                text.push_str(element.decode()?.as_ref());
+                text.push_str(element.as_ref());
             }
             Event::GeneralRef(gref) => {
-                let entity = gref.decode()?;
-                if let Some(resolved_entity) = resolve_predefined_entity(&entity) {
+                let entity = gref.as_ref();
+                if let Some(resolved_entity) = resolve_predefined_entity(entity) {
                     text.push_str(resolved_entity);
                 } else if let Some(ch) = gref.resolve_char_ref()? {
                     text.push(ch);
                 } else {
                     text.push('&');
-                    text.push_str(&entity);
+                    text.push_str(entity);
                     text.push(';');
                 }
             }

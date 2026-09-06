@@ -122,7 +122,7 @@ impl Guid {
 
         for attr in atts.with_checks(false).flatten() {
             if decode(attr.key.as_ref(), reader)?.as_ref() == "isPermaLink" {
-                guid.permalink = &*attr.value != b"false";
+                guid.permalink = attr.value.as_ref() != "false";
                 break;
             }
         }

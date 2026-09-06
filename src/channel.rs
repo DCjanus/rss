@@ -1130,8 +1130,11 @@ impl Channel {
         let mut namespaces: BTreeMap<&String, &String> = BTreeMap::new();
         namespaces.extend(&used_namespaces);
         namespaces.extend(&self.namespaces);
+        let mut namespace_names = Vec::new();
         for (name, url) in namespaces {
-            element.push_attribute((format!("xmlns:{}", name).as_bytes(), url.as_bytes()));
+            namespace_names.push(format!("xmlns:{}", name));
+            let namespace_name = namespace_names.last().unwrap();
+            element.push_attribute((namespace_name.as_str(), url.as_str()));
         }
 
         writer.write_event(Event::Start(element))?;
