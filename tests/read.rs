@@ -1,11 +1,24 @@
 extern crate rss;
 
 use std::collections::BTreeMap;
+use std::io::Cursor;
 
 use rss::extension::dublincore::DublinCoreExtension;
 use rss::extension::syndication;
 use rss::extension::Extension;
 use rss::Channel;
+
+fn utf16le(input: &str) -> Vec<u8> {
+    let mut bytes = vec![0xFF, 0xFE];
+    bytes.extend(input.encode_utf16().flat_map(u16::to_le_bytes));
+    bytes
+}
+
+fn utf16be(input: &str) -> Vec<u8> {
+    let mut bytes = vec![0xFE, 0xFF];
+    bytes.extend(input.encode_utf16().flat_map(u16::to_be_bytes));
+    bytes
+}
 
 fn get_extension_values<'a>(
     map: &'a BTreeMap<String, Vec<Extension>>,
@@ -81,6 +94,36 @@ fn read_rss091() {
              Gnutella -allowing distributed applications using peer-to-peer routing.",
         )
     );
+}
+
+#[test]
+fn read_iso_8859_1_bytes() {
+    let input = b"<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
+        <rss version=\"2.0\"><channel><title>Caf\xE9</title>
+        <link>https://example.com</link><description>News</description></channel></rss>";
+    let channel = Channel::read_from(Cursor::new(input)).expect("failed to parse ISO-8859-1 XML");
+
+    assert_eq!(channel.title(), "Café");
+}
+
+#[test]
+fn reject_utf16_little_endian_bytes() {
+    let input = utf16le(
+        "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n\
+         <rss version=\"2.0\"><channel><title>Café</title>\n\
+         <link>https://example.com</link><description>News</description></channel></rss>",
+    );
+    assert!(Channel::read_from(Cursor::new(input)).is_err());
+}
+
+#[test]
+fn reject_utf16_big_endian_bytes() {
+    let input = utf16be(
+        "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n\
+         <rss version=\"2.0\"><channel><title>Café</title>\n\
+         <link>https://example.com</link><description>News</description></channel></rss>",
+    );
+    assert!(Channel::read_from(Cursor::new(input)).is_err());
 }
 
 #[test]
