@@ -107,7 +107,6 @@ fn read_iso_8859_1_bytes() {
 }
 
 #[test]
-#[ignore = "Channel::read_from() does not support UTF-16 input yet"]
 fn read_utf16_little_endian_bytes() {
     let input = utf16le_with_bom(
         "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n\
@@ -120,11 +119,21 @@ fn read_utf16_little_endian_bytes() {
 }
 
 #[test]
-#[ignore = "Channel::read_from() does not support UTF-16 input yet"]
 fn read_utf16_big_endian_bytes() {
     let input = utf16be_with_bom(
         "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n\
          <rss version=\"2.0\"><channel><title>Café</title>\n\
+         <link>https://example.com</link><description>News</description></channel></rss>",
+    );
+    let channel = Channel::read_from(Cursor::new(input)).expect("failed to parse UTF-16 XML");
+
+    assert_eq!(channel.title(), "Café");
+}
+
+#[test]
+fn read_utf16_without_xml_declaration() {
+    let input = utf16le_with_bom(
+        "<rss version=\"2.0\"><channel><title>Café</title>\n\
          <link>https://example.com</link><description>News</description></channel></rss>",
     );
     let channel = Channel::read_from(Cursor::new(input)).expect("failed to parse UTF-16 XML");
