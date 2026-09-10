@@ -1,0 +1,2253 @@
+{
+  "experiment": {
+    "crate_revision": "5f7dea4784a0a38a5d8dc2d9b0a685d8cb4df3eb",
+    "mode": "feedparser-wellformed",
+    "note": "Internal discovery draft; candidate differences are not confirmed defects"
+  },
+  "inventory": [
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "not stripping doctype properly if doctype contains entity declaration",
+      "fixture": "tests/wellformed/rdf/doctype_contains_entity_decl.xml",
+      "source_expectation": "not bozo",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel description",
+      "fixture": "tests/wellformed/rdf/rdf_channel_description.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel link",
+      "fixture": "tests/wellformed/rdf/rdf_channel_link.xml",
+      "source_expectation": "not bozo and feed['link'] == 'http://example.com/'",
+      "validation": {
+        "status": "ok"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel title",
+      "fixture": "tests/wellformed/rdf/rdf_channel_title.xml",
+      "source_expectation": "not bozo and feed['title'] == 'Example feed'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item description",
+      "fixture": "tests/wellformed/rdf/rdf_item_description.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item link",
+      "fixture": "tests/wellformed/rdf/rdf_item_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://example.com/1'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item rdf:about",
+      "fixture": "tests/wellformed/rdf/rdf_item_rdf_about.xml",
+      "source_expectation": "not bozo and entries[0]['id'] == 'http://example.org/1'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item title",
+      "fixture": "tests/wellformed/rdf/rdf_item_title.xml",
+      "source_expectation": "not bozo and entries[0]['title'] == 'Example title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "RSS version 0.90 channel title",
+      "fixture": "tests/wellformed/rdf/rss090_channel_title.xml",
+      "source_expectation": "not bozo and feed['title'] == 'Example title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "RSS version 0.90 item title",
+      "fixture": "tests/wellformed/rdf/rss090_item_title.xml",
+      "source_expectation": "not bozo and entries[0]['title'] == 'Item title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 1.0",
+      "fixture": "tests/wellformed/rdf/rss_version_10.xml",
+      "source_expectation": "not bozo and version == 'rss10'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 1.0",
+      "fixture": "tests/wellformed/rdf/rss_version_10_not_default_ns.xml",
+      "source_expectation": "not bozo and version == 'rss10'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel author",
+      "fixture": "tests/wellformed/rss/channel_author.xml",
+      "source_expectation": "not bozo and feed['author'] == 'Example editor (me@example.com)'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel author maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_author_map_author_detail_email.xml",
+      "source_expectation": "not bozo and feed['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel author maps to author_detail email if both name and email are given (email contains +)",
+      "fixture": "tests/wellformed/rss/channel_author_map_author_detail_email_2.xml",
+      "source_expectation": "not bozo and feed['author_detail']['email'] == 'me+spam@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel author maps to author_detail email if both name and email are given (name in parens)",
+      "fixture": "tests/wellformed/rss/channel_author_map_author_detail_email_3.xml",
+      "source_expectation": "not bozo and feed['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel author maps to author_detail name if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_author_map_author_detail_name.xml",
+      "source_expectation": "not bozo and feed['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel author maps to author_detail name if both name and email are given (name in parens)",
+      "fixture": "tests/wellformed/rss/channel_author_map_author_detail_name_2.xml",
+      "source_expectation": "not bozo and feed['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel single category",
+      "fixture": "tests/wellformed/rss/channel_category.xml",
+      "source_expectation": "not bozo and feed['category'] == 'Example category'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel single category with domain",
+      "fixture": "tests/wellformed/rss/channel_category_domain.xml",
+      "source_expectation": "not bozo and feed['tags'][0]['scheme'] == 'http://www.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel multiple categories",
+      "fixture": "tests/wellformed/rss/channel_category_multiple.xml",
+      "source_expectation": "not bozo and feed['tags'][1]['scheme'] == 'http://www.example.com/2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel multiple categories",
+      "fixture": "tests/wellformed/rss/channel_category_multiple_2.xml",
+      "source_expectation": "not bozo and feed['tags'][1]['term'] == 'Example category 2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "cloud domain",
+      "fixture": "tests/wellformed/rss/channel_cloud_domain.xml",
+      "source_expectation": "not bozo and feed['cloud']['domain'] == 'rpc.sys.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "cloud path",
+      "fixture": "tests/wellformed/rss/channel_cloud_path.xml",
+      "source_expectation": "not bozo and feed['cloud']['path'] == '/RPC2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "cloud port",
+      "fixture": "tests/wellformed/rss/channel_cloud_port.xml",
+      "source_expectation": "not bozo and feed['cloud']['port'] == '80'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "cloud protocol",
+      "fixture": "tests/wellformed/rss/channel_cloud_protocol.xml",
+      "source_expectation": "not bozo and feed['cloud']['protocol'] == 'xml-rpc'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "cloud registerProcedure",
+      "fixture": "tests/wellformed/rss/channel_cloud_registerProcedure.xml",
+      "source_expectation": "not bozo and feed['cloud']['registerprocedure'] == 'myCloud.rssPleaseNotify'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "normal copyright",
+      "fixture": "tests/wellformed/rss/channel_copyright.xml",
+      "source_expectation": "not bozo and feed['copyright'] == 'Example copyright'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "after": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "before": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: Some(\n        DublinCoreExtension {\n            contributors: [],\n            coverages: [],\n            creators: [],\n            dates: [],\n            descriptions: [],\n            formats: [],\n            identifiers: [],\n            languages: [],\n            publishers: [],\n            relations: [],\n            rights: [],\n            sources: [],\n            subjects: [],\n            titles: [],\n            types: [],\n        },\n    ),\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "details": "serialized output parses but changes the Channel value",
+          "kind": "roundtrip-mismatch",
+          "serialized": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><channel><title></title><link></link><description></description></channel></rss>"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "channel dc:author",
+      "fixture": "tests/wellformed/rss/channel_dc_author.xml",
+      "source_expectation": "not bozo and feed['author'] == 'Example editor' and feed['author_detail']['name'] == 'Example editor'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "after": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "before": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: Some(\n        DublinCoreExtension {\n            contributors: [],\n            coverages: [],\n            creators: [],\n            dates: [],\n            descriptions: [],\n            formats: [],\n            identifiers: [],\n            languages: [],\n            publishers: [],\n            relations: [],\n            rights: [],\n            sources: [],\n            subjects: [],\n            titles: [],\n            types: [],\n        },\n    ),\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "details": "serialized output parses but changes the Channel value",
+          "kind": "roundtrip-mismatch",
+          "serialized": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><channel><title></title><link></link><description></description></channel></rss>"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "channel dc:author maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_dc_author_map_author_detail_email.xml",
+      "source_expectation": "not bozo and feed['author_detail']['email'] == 'me@example.com'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "after": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "before": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: Some(\n        DublinCoreExtension {\n            contributors: [],\n            coverages: [],\n            creators: [],\n            dates: [],\n            descriptions: [],\n            formats: [],\n            identifiers: [],\n            languages: [],\n            publishers: [],\n            relations: [],\n            rights: [],\n            sources: [],\n            subjects: [],\n            titles: [],\n            types: [],\n        },\n    ),\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "details": "serialized output parses but changes the Channel value",
+          "kind": "roundtrip-mismatch",
+          "serialized": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><channel><title></title><link></link><description></description></channel></rss>"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "channel dc:author maps to author_detail name if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_dc_author_map_author_detail_name.xml",
+      "source_expectation": "not bozo and feed['author_detail']['name'] == 'Example editor'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:contributor",
+      "fixture": "tests/wellformed/rss/channel_dc_contributor.xml",
+      "source_expectation": "not bozo and feed['contributors'][0]['name'] == 'Example contributor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:creator maps to author",
+      "fixture": "tests/wellformed/rss/channel_dc_creator.xml",
+      "source_expectation": "not bozo and feed['author'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:creator maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_dc_creator_map_author_detail_email.xml",
+      "source_expectation": "not bozo and feed['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:creator maps to author_detail name if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_dc_creator_map_author_detail_name.xml",
+      "source_expectation": "not bozo and feed['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:date",
+      "fixture": "tests/wellformed/rss/channel_dc_date.xml",
+      "source_expectation": "not bozo and feed['updated'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:date parsed",
+      "fixture": "tests/wellformed/rss/channel_dc_date_parsed.xml",
+      "source_expectation": "not bozo and feed['updated_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:publisher",
+      "fixture": "tests/wellformed/rss/channel_dc_publisher.xml",
+      "source_expectation": "not bozo and feed['publisher'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:publisher",
+      "fixture": "tests/wellformed/rss/channel_dc_publisher_email.xml",
+      "source_expectation": "not bozo and feed['publisher_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:publisher",
+      "fixture": "tests/wellformed/rss/channel_dc_publisher_name.xml",
+      "source_expectation": "not bozo and feed['publisher_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:rights",
+      "fixture": "tests/wellformed/rss/channel_dc_rights.xml",
+      "source_expectation": "not bozo and feed['copyright'] == 'Example copyright'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:subject",
+      "fixture": "tests/wellformed/rss/channel_dc_subject.xml",
+      "source_expectation": "not bozo and feed['category'] == 'Example category'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:subject maps to categories",
+      "fixture": "tests/wellformed/rss/channel_dc_subject_2.xml",
+      "source_expectation": "not bozo and feed['tags'][0]['term'] == 'Example category'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "multiple dc:subject",
+      "fixture": "tests/wellformed/rss/channel_dc_subject_multiple.xml",
+      "source_expectation": "not bozo and feed['tags'][1]['term'] == 'Example category 2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dc:title",
+      "fixture": "tests/wellformed/rss/channel_dc_title.xml",
+      "source_expectation": "not bozo and feed['title'] == 'Example title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:created",
+      "fixture": "tests/wellformed/rss/channel_dcterms_created.xml",
+      "source_expectation": "not bozo and feed['created'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:created parsed",
+      "fixture": "tests/wellformed/rss/channel_dcterms_created_parsed.xml",
+      "source_expectation": "not bozo and feed['created_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:issued",
+      "fixture": "tests/wellformed/rss/channel_dcterms_issued.xml",
+      "source_expectation": "not bozo and feed['published'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:issued parsed",
+      "fixture": "tests/wellformed/rss/channel_dcterms_issued_parsed.xml",
+      "source_expectation": "not bozo and feed['published_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:modified",
+      "fixture": "tests/wellformed/rss/channel_dcterms_modified.xml",
+      "source_expectation": "not bozo and feed['updated'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:modified parsed",
+      "fixture": "tests/wellformed/rss/channel_dcterms_modified_parsed.xml",
+      "source_expectation": "not bozo and feed['updated_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:valid start/end",
+      "fixture": "tests/wellformed/rss/channel_dcterms_validity.xml",
+      "source_expectation": "not bozo and feed['validity_end'] == '2002-10-17T17:00+01:00' and feed['validity_start'] == '2002-10-13T09:00+01:00'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:valid end",
+      "fixture": "tests/wellformed/rss/channel_dcterms_validity_end.xml",
+      "source_expectation": "not bozo and feed['validity_end'] == '2002-10-17T17:00+01:00'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:valid end parsed",
+      "fixture": "tests/wellformed/rss/channel_dcterms_validity_end_parsed.xml",
+      "source_expectation": "not bozo and feed['validity_end_parsed'] == (2002, 10, 17, 16, 0, 0, 3, 290, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:valid start/end parsed",
+      "fixture": "tests/wellformed/rss/channel_dcterms_validity_parsed.xml",
+      "source_expectation": "not bozo and feed['validity_end_parsed'] == (2002, 10, 17, 16, 0, 0, 3, 290, 0) and feed['validity_start_parsed'] == (2002, 10, 13, 8, 0, 0, 6, 286, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:valid start",
+      "fixture": "tests/wellformed/rss/channel_dcterms_validity_start.xml",
+      "source_expectation": "not bozo and feed['validity_start'] == '2002-10-13T09:00+01:00'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel dcterms:valid start parsed",
+      "fixture": "tests/wellformed/rss/channel_dcterms_validity_start_parsed.xml",
+      "source_expectation": "not bozo and feed['validity_start_parsed'] == (2002, 10, 13, 8, 0, 0, 6, 286, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "normal description",
+      "fixture": "tests/wellformed/rss/channel_description.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "escaped markup in description",
+      "fixture": "tests/wellformed/rss/channel_description_escaped_markup.xml",
+      "source_expectation": "not bozo and feed['description'] == '<p>Example description</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel description is mapped to tagline",
+      "fixture": "tests/wellformed/rss/channel_description_map_tagline.xml",
+      "source_expectation": "not bozo and feed['tagline'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "naked markup in description",
+      "fixture": "tests/wellformed/rss/channel_description_naked_markup.xml",
+      "source_expectation": "not bozo and feed['description'] == '<p>Example description</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "description shorttag and link following",
+      "fixture": "tests/wellformed/rss/channel_description_shorttag.xml",
+      "source_expectation": "not bozo and feed['description'] == '' and feed['link'] == 'http://example.com/'",
+      "validation": {
+        "status": "ok"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "docs",
+      "fixture": "tests/wellformed/rss/channel_docs.xml",
+      "source_expectation": "not bozo and feed['docs'] == 'http://www.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "generator",
+      "fixture": "tests/wellformed/rss/channel_generator.xml",
+      "source_expectation": "not bozo and feed['generator'] == 'Example generator'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image description",
+      "fixture": "tests/wellformed/rss/channel_image_description.xml",
+      "source_expectation": "not bozo and feed['image']['description'] == 'Available in Netscape RSS 0.91'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image height",
+      "fixture": "tests/wellformed/rss/channel_image_height.xml",
+      "source_expectation": "not bozo and feed['image']['height'] == 15",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image link",
+      "fixture": "tests/wellformed/rss/channel_image_link.xml",
+      "source_expectation": "not bozo and feed['image']['link'] == 'http://example.org/link'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image link does not bleed into channel link array",
+      "fixture": "tests/wellformed/rss/channel_image_link_bleed.xml",
+      "source_expectation": "not bozo and len(feed['links']) == 1",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image link does not conflict with channel link",
+      "fixture": "tests/wellformed/rss/channel_image_link_conflict.xml",
+      "source_expectation": "not bozo and feed['link'] == 'http://channel.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image title",
+      "fixture": "tests/wellformed/rss/channel_image_title.xml",
+      "source_expectation": "not bozo and feed['image']['title'] == 'Sample image'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image title does not conflict with channel title",
+      "fixture": "tests/wellformed/rss/channel_image_title_conflict.xml",
+      "source_expectation": "not bozo and feed['title'] == 'Real title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image url",
+      "fixture": "tests/wellformed/rss/channel_image_url.xml",
+      "source_expectation": "not bozo and feed['image']['url'] == 'http://example.org/url'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image width",
+      "fixture": "tests/wellformed/rss/channel_image_width.xml",
+      "source_expectation": "not bozo and feed['image']['width'] == 80",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel lastBuildDate",
+      "fixture": "tests/wellformed/rss/channel_lastBuildDate.xml",
+      "source_expectation": "not bozo and feed['updated'] == 'Sat, 07 Sep 2002 00:00:01 GMT'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel lastBuildDate parsed",
+      "fixture": "tests/wellformed/rss/channel_lastBuildDate_parsed.xml",
+      "source_expectation": "not bozo and feed['updated_parsed'] == (2002, 9, 7, 0, 0, 1, 5, 250, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "normal link",
+      "fixture": "tests/wellformed/rss/channel_link.xml",
+      "source_expectation": "not bozo and feed['link'] == 'http://example.com/'",
+      "validation": {
+        "status": "ok"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel managingEditor maps to author",
+      "fixture": "tests/wellformed/rss/channel_managingEditor.xml",
+      "source_expectation": "not bozo and feed['author'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "managingEditor maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_managingEditor_map_author_detail_email.xml",
+      "source_expectation": "not bozo and feed['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "managingEditor maps to author_detail name if both name and email are given",
+      "fixture": "tests/wellformed/rss/channel_managingEditor_map_author_detail_name.xml",
+      "source_expectation": "not bozo and feed['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel pubDate",
+      "fixture": "tests/wellformed/rss/channel_pubDate.xml",
+      "source_expectation": "not bozo and feed['published'] == 'Thu, 01 Jan 2004 19:48:21 GMT'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel pubDate parsed and mapped to published_parsed",
+      "fixture": "tests/wellformed/rss/channel_pubDate_map_updated_parsed.xml",
+      "source_expectation": "not bozo and feed['published_parsed'] == (2004, 1, 1, 19, 48, 21, 3, 1, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput description",
+      "fixture": "tests/wellformed/rss/channel_textInput_description.xml",
+      "source_expectation": "not bozo and feed['textinput']['description'] == 'textInput description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput description does not conflict with channel description",
+      "fixture": "tests/wellformed/rss/channel_textInput_description_conflict.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Real description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput link",
+      "fixture": "tests/wellformed/rss/channel_textInput_link.xml",
+      "source_expectation": "not bozo and feed['textinput']['link'] == 'http://textinput.example.com/'",
+      "validation": {
+        "status": "ok"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput link does not bleed into channel link array",
+      "fixture": "tests/wellformed/rss/channel_textInput_link_bleed.xml",
+      "source_expectation": "not bozo and len(feed['links']) == 1",
+      "validation": {
+        "status": "ok"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput link does not conflict with channel link",
+      "fixture": "tests/wellformed/rss/channel_textInput_link_conflict.xml",
+      "source_expectation": "not bozo and feed['link'] == 'http://channel.example.com/'",
+      "validation": {
+        "status": "ok"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput name",
+      "fixture": "tests/wellformed/rss/channel_textInput_name.xml",
+      "source_expectation": "not bozo and feed['textinput']['name'] == 'textinput name'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput title",
+      "fixture": "tests/wellformed/rss/channel_textInput_title.xml",
+      "source_expectation": "not bozo and feed['textinput']['title'] == 'textInput title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "textInput title does not conflict with channel title",
+      "fixture": "tests/wellformed/rss/channel_textInput_title_conflict.xml",
+      "source_expectation": "not bozo and feed['title'] == 'Real title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "normal title",
+      "fixture": "tests/wellformed/rss/channel_title.xml",
+      "source_expectation": "not bozo and feed['title'] == 'Example feed'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel title contains apos entity",
+      "fixture": "tests/wellformed/rss/channel_title_apos.xml",
+      "source_expectation": "not bozo and feed['title'] == \"Mark's title\"",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel title contains gt entity",
+      "fixture": "tests/wellformed/rss/channel_title_gt.xml",
+      "source_expectation": "not bozo and feed['title'] == '2 > 1'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel title contains lt entity",
+      "fixture": "tests/wellformed/rss/channel_title_lt.xml",
+      "source_expectation": "not bozo and feed['title'] == '1 < 2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "ttl",
+      "fixture": "tests/wellformed/rss/channel_ttl.xml",
+      "source_expectation": "not bozo and feed['ttl'] == '60'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel webMaster maps to publisher",
+      "fixture": "tests/wellformed/rss/channel_webMaster.xml",
+      "source_expectation": "not bozo and feed['publisher'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel webMaster maps to publisher",
+      "fixture": "tests/wellformed/rss/channel_webMaster_email.xml",
+      "source_expectation": "not bozo and feed['publisher_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "channel webMaster maps to publisher",
+      "fixture": "tests/wellformed/rss/channel_webMaster_name.xml",
+      "source_expectation": "not bozo and feed['publisher_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "AT&T",
+      "fixture": "tests/wellformed/rss/entity_in_doctype.xml",
+      "source_expectation": "not bozo and entries[0]['guid'] == 'tag:example.com,2006-05-04:/blog/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author",
+      "fixture": "tests/wellformed/rss/item_author.xml",
+      "source_expectation": "not bozo and entries[0]['author'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_author_map_author_detail_email.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_author_map_author_detail_email2.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_author_map_author_detail_email3.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author maps to author_detail_name if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_author_map_author_detail_name.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author maps to author_detail_name if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_author_map_author_detail_name2.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item author maps to author_detail_name if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_author_map_author_detail_name3.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item single category",
+      "fixture": "tests/wellformed/rss/item_category.xml",
+      "source_expectation": "not bozo and entries[0]['category'] == 'Example category'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item category with domain",
+      "fixture": "tests/wellformed/rss/item_category_domain.xml",
+      "source_expectation": "not bozo and entries[0]['tags'][0]['scheme'] == 'http://www.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item with an image inside a category should not cause error",
+      "fixture": "tests/wellformed/rss/item_category_image.xml",
+      "source_expectation": "not bozo and entries[0]['category'] != None",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item multiple categories",
+      "fixture": "tests/wellformed/rss/item_category_multiple.xml",
+      "source_expectation": "not bozo and entries[0]['tags'][1]['scheme'] == 'http://www.example.com/2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item multiple categories",
+      "fixture": "tests/wellformed/rss/item_category_multiple_2.xml",
+      "source_expectation": "not bozo and entries[0]['tags'][1]['term'] == 'Example category 2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "creative commons license",
+      "fixture": "tests/wellformed/rss/item_cc_license.xml",
+      "source_expectation": "not bozo and entries[0]['license'] == 'http://www.creativecommons.org/licenses/by-nc/1.0'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item comments",
+      "fixture": "tests/wellformed/rss/item_comments.xml",
+      "source_expectation": "not bozo and entries[0]['comments'] == 'http://example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "content:encoded",
+      "fixture": "tests/wellformed/rss/item_content_encoded.xml",
+      "source_expectation": "not bozo and entries[0]['content'][0]['value'] == '<p>Example content</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "content:encoded mode",
+      "fixture": "tests/wellformed/rss/item_content_encoded_mode.xml",
+      "source_expectation": "1",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "content:encoded type",
+      "fixture": "tests/wellformed/rss/item_content_encoded_type.xml",
+      "source_expectation": "not bozo and entries[0]['content'][0]['type'] == 'text/html'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "creative commons license",
+      "fixture": "tests/wellformed/rss/item_creativeCommons_license.xml",
+      "source_expectation": "not bozo and entries[0]['license'] == 'http://www.creativecommons.org/licenses/by-nc/1.0'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "after": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [\n        Item {\n            title: None,\n            link: None,\n            description: None,\n            author: None,\n            categories: [],\n            comments: None,\n            enclosure: None,\n            guid: None,\n            pub_date: None,\n            source: None,\n            content: None,\n            extensions: {},\n            itunes_ext: None,\n            dublin_core_ext: None,\n        },\n    ],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "before": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [\n        Item {\n            title: None,\n            link: None,\n            description: None,\n            author: None,\n            categories: [],\n            comments: None,\n            enclosure: None,\n            guid: None,\n            pub_date: None,\n            source: None,\n            content: None,\n            extensions: {},\n            itunes_ext: None,\n            dublin_core_ext: Some(\n                DublinCoreExtension {\n                    contributors: [],\n                    coverages: [],\n                    creators: [],\n                    dates: [],\n                    descriptions: [],\n                    formats: [],\n                    identifiers: [],\n                    languages: [],\n                    publishers: [],\n                    relations: [],\n                    rights: [],\n                    sources: [],\n                    subjects: [],\n                    titles: [],\n                    types: [],\n                },\n            ),\n        },\n    ],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "details": "serialized output parses but changes the Channel value",
+          "kind": "roundtrip-mismatch",
+          "serialized": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><channel><title></title><link></link><description></description><item></item></channel></rss>"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "item dc:author",
+      "fixture": "tests/wellformed/rss/item_dc_author.xml",
+      "source_expectation": "not bozo and entries[0]['author'] == 'Example editor'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "after": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [\n        Item {\n            title: None,\n            link: None,\n            description: None,\n            author: None,\n            categories: [],\n            comments: None,\n            enclosure: None,\n            guid: None,\n            pub_date: None,\n            source: None,\n            content: None,\n            extensions: {},\n            itunes_ext: None,\n            dublin_core_ext: None,\n        },\n    ],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "before": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [\n        Item {\n            title: None,\n            link: None,\n            description: None,\n            author: None,\n            categories: [],\n            comments: None,\n            enclosure: None,\n            guid: None,\n            pub_date: None,\n            source: None,\n            content: None,\n            extensions: {},\n            itunes_ext: None,\n            dublin_core_ext: Some(\n                DublinCoreExtension {\n                    contributors: [],\n                    coverages: [],\n                    creators: [],\n                    dates: [],\n                    descriptions: [],\n                    formats: [],\n                    identifiers: [],\n                    languages: [],\n                    publishers: [],\n                    relations: [],\n                    rights: [],\n                    sources: [],\n                    subjects: [],\n                    titles: [],\n                    types: [],\n                },\n            ),\n        },\n    ],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "details": "serialized output parses but changes the Channel value",
+          "kind": "roundtrip-mismatch",
+          "serialized": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><channel><title></title><link></link><description></description><item></item></channel></rss>"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "item dc:author maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_dc_author_map_author_detail_email.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['email'] == 'me@example.com'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "after": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [\n        Item {\n            title: None,\n            link: None,\n            description: None,\n            author: None,\n            categories: [],\n            comments: None,\n            enclosure: None,\n            guid: None,\n            pub_date: None,\n            source: None,\n            content: None,\n            extensions: {},\n            itunes_ext: None,\n            dublin_core_ext: None,\n        },\n    ],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "before": "Channel {\n    title: \"\",\n    link: \"\",\n    description: \"\",\n    language: None,\n    copyright: None,\n    managing_editor: None,\n    webmaster: None,\n    pub_date: None,\n    last_build_date: None,\n    categories: [],\n    generator: None,\n    docs: None,\n    cloud: None,\n    rating: None,\n    ttl: None,\n    image: None,\n    text_input: None,\n    skip_hours: [],\n    skip_days: [],\n    items: [\n        Item {\n            title: None,\n            link: None,\n            description: None,\n            author: None,\n            categories: [],\n            comments: None,\n            enclosure: None,\n            guid: None,\n            pub_date: None,\n            source: None,\n            content: None,\n            extensions: {},\n            itunes_ext: None,\n            dublin_core_ext: Some(\n                DublinCoreExtension {\n                    contributors: [],\n                    coverages: [],\n                    creators: [],\n                    dates: [],\n                    descriptions: [],\n                    formats: [],\n                    identifiers: [],\n                    languages: [],\n                    publishers: [],\n                    relations: [],\n                    rights: [],\n                    sources: [],\n                    subjects: [],\n                    titles: [],\n                    types: [],\n                },\n            ),\n        },\n    ],\n    extensions: {},\n    itunes_ext: None,\n    dublin_core_ext: None,\n    syndication_ext: None,\n    namespaces: {\n        \"dc\": \"http://purl.org/dc/elements/1.1/\",\n    },\n}",
+          "details": "serialized output parses but changes the Channel value",
+          "kind": "roundtrip-mismatch",
+          "serialized": "<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><channel><title></title><link></link><description></description><item></item></channel></rss>"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "item dc:author maps to author_detail name if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_dc_author_map_author_detail_name.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['name'] == 'Example editor'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:contributor",
+      "fixture": "tests/wellformed/rss/item_dc_contributor.xml",
+      "source_expectation": "not bozo and entries[0]['contributors'][0]['name'] == 'Example contributor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:creator maps to author",
+      "fixture": "tests/wellformed/rss/item_dc_creator.xml",
+      "source_expectation": "not bozo and entries[0]['author'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:creator maps to author_detail email if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_dc_creator_map_author_detail_email.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:creator maps to author_detail name if both name and email are given",
+      "fixture": "tests/wellformed/rss/item_dc_creator_map_author_detail_name.xml",
+      "source_expectation": "not bozo and entries[0]['author_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:date",
+      "fixture": "tests/wellformed/rss/item_dc_date.xml",
+      "source_expectation": "not bozo and entries[0]['updated'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:date parsed",
+      "fixture": "tests/wellformed/rss/item_dc_date_parsed.xml",
+      "source_expectation": "not bozo and entries[0]['updated_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:description",
+      "fixture": "tests/wellformed/rss/item_dc_description.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:publisher",
+      "fixture": "tests/wellformed/rss/item_dc_publisher.xml",
+      "source_expectation": "not bozo and entries[0]['publisher'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:publisher",
+      "fixture": "tests/wellformed/rss/item_dc_publisher_email.xml",
+      "source_expectation": "not bozo and entries[0]['publisher_detail']['email'] == 'me@example.com'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:publisher",
+      "fixture": "tests/wellformed/rss/item_dc_publisher_name.xml",
+      "source_expectation": "not bozo and entries[0]['publisher_detail']['name'] == 'Example editor'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:rights",
+      "fixture": "tests/wellformed/rss/item_dc_rights.xml",
+      "source_expectation": "not bozo and entries[0]['copyright'] == 'Example copyright'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:subject",
+      "fixture": "tests/wellformed/rss/item_dc_subject.xml",
+      "source_expectation": "not bozo and entries[0]['category'] == 'Example category'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:subject maps to categories",
+      "fixture": "tests/wellformed/rss/item_dc_subject_2.xml",
+      "source_expectation": "not bozo and entries[0]['tags'][0]['term'] == 'Example category'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "multiple item dc:subject",
+      "fixture": "tests/wellformed/rss/item_dc_subject_multiple.xml",
+      "source_expectation": "not bozo and entries[0]['tags'][1]['term'] == 'Example category 2'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dc:title",
+      "fixture": "tests/wellformed/rss/item_dc_title.xml",
+      "source_expectation": "not bozo and entries[0]['title'] == 'Example title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dcterms:created",
+      "fixture": "tests/wellformed/rss/item_dcterms_created.xml",
+      "source_expectation": "not bozo and entries[0]['created'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dcterms:created parsed",
+      "fixture": "tests/wellformed/rss/item_dcterms_created_parsed.xml",
+      "source_expectation": "not bozo and entries[0]['created_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dcterms:issued",
+      "fixture": "tests/wellformed/rss/item_dcterms_issued.xml",
+      "source_expectation": "not bozo and entries[0]['published'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dcterms:issued parsed",
+      "fixture": "tests/wellformed/rss/item_dcterms_issued_parsed.xml",
+      "source_expectation": "not bozo and entries[0]['published_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dcterms:modified",
+      "fixture": "tests/wellformed/rss/item_dcterms_modified.xml",
+      "source_expectation": "not bozo and entries[0]['updated'] == '2003-12-31T10:14:55Z'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item dcterms:modified parsed",
+      "fixture": "tests/wellformed/rss/item_dcterms_modified_parsed.xml",
+      "source_expectation": "not bozo and entries[0]['updated_parsed'] == (2003, 12, 31, 10, 14, 55, 2, 365, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item description",
+      "fixture": "tests/wellformed/rss/item_description.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item contains both description and summary elements",
+      "fixture": "tests/wellformed/rss/item_description_and_summary.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == 'Example description' and entries[0]['content'][0]['value'] == 'Example summary'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item description contains both <br/> and <br />",
+      "fixture": "tests/wellformed/rss/item_description_br.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == 'article title<br /><br /> article byline<br /><br />text of article'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item description ends with <br />",
+      "fixture": "tests/wellformed/rss/item_description_br_shorttag.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == '<b>x</b><br />'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item description contains <code> with <br />",
+      "fixture": "tests/wellformed/rss/item_description_code_br.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == '<code>&lt;br /></code>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "escaped markup in item description",
+      "fixture": "tests/wellformed/rss/item_description_escaped_markup.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == '<p>Example description</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item description is mapped to summary",
+      "fixture": "tests/wellformed/rss/item_description_map_summary.xml",
+      "source_expectation": "not bozo and entries[0]['summary'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "naked markup in item description",
+      "fixture": "tests/wellformed/rss/item_description_naked_markup.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == '<p>Example description</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "item description is not a DOCTYPE (but HTML parser thinks it is)",
+      "fixture": "tests/wellformed/rss/item_description_not_a_doctype.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == \"\"\"&lt;!' <a href=\"foo\">\"\"\"",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "item description is not a DOCTYPE (but HTML parser thinks it is)",
+      "fixture": "tests/wellformed/rss/item_description_not_a_doctype2.xml",
+      "source_expectation": "not bozo and entries[0]['description'] == \"<!DOCTYPE\"",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item enclosure length",
+      "fixture": "tests/wellformed/rss/item_enclosure_length.xml",
+      "source_expectation": "not bozo and entries[0]['enclosures'][0]['length'] == '100000'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "multiple enclosures",
+      "fixture": "tests/wellformed/rss/item_enclosure_multiple.xml",
+      "source_expectation": "not bozo and entries[0]['enclosures'][1] == {'href': 'http://example.com/2', 'length': '200000', 'type': 'image/gif'}",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item enclosure type",
+      "fixture": "tests/wellformed/rss/item_enclosure_type.xml",
+      "source_expectation": "not bozo and entries[0]['enclosures'][0]['type'] == 'image/jpeg'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item enclosure url",
+      "fixture": "tests/wellformed/rss/item_enclosure_url.xml",
+      "source_expectation": "not bozo and entries[0]['enclosures'][0]['url'] == 'http://example.com/' and entries[0]['links'][0]['rel'] == 'enclosure'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item expirationDate",
+      "fixture": "tests/wellformed/rss/item_expirationDate.xml",
+      "source_expectation": "not bozo and entries[0]['expired'] == 'Thu, 01 Jan 2004 19:48:21 GMT'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item expirationDate with multiple values",
+      "fixture": "tests/wellformed/rss/item_expirationDate_multiple_values.xml",
+      "source_expectation": "not bozo and entries[0]['expired_parsed'] == (2004, 1, 1, 19, 48, 21, 3, 1, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item expirationDate parsed",
+      "fixture": "tests/wellformed/rss/item_expirationDate_parsed.xml",
+      "source_expectation": "not bozo and entries[0]['expired_parsed'] == (2004, 1, 1, 19, 48, 21, 3, 1, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "fullitem",
+      "fixture": "tests/wellformed/rss/item_fullitem.xml",
+      "source_expectation": "not bozo and entries[0]['content'][0]['value'] == '<p>Example content</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "fullitem mode",
+      "fixture": "tests/wellformed/rss/item_fullitem_mode.xml",
+      "source_expectation": "1",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "fullitem type",
+      "fixture": "tests/wellformed/rss/item_fullitem_type.xml",
+      "source_expectation": "not bozo and entries[0]['content'][0]['type'] == 'text/html'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid",
+      "fixture": "tests/wellformed/rss/item_guid.xml",
+      "source_expectation": "not bozo and entries[0]['guid'] == 'http://guid.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid does not override link",
+      "fixture": "tests/wellformed/rss/item_guid_conflict_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://link.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "guidislink",
+      "fixture": "tests/wellformed/rss/item_guid_guidislink.xml",
+      "source_expectation": "not bozo and entries[0]['guidislink']",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "ensure ValueError from urljoin() is caught",
+      "fixture": "tests/wellformed/rss/item_guid_isPermaLink_ValueError.xml",
+      "source_expectation": "not bozo",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid does not override link even if isPermaLink=\"true\"",
+      "fixture": "tests/wellformed/rss/item_guid_isPermaLink_conflict_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://link.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "not guidislink when link present (even if isPermaLink=\"true\")",
+      "fixture": "tests/wellformed/rss/item_guid_isPermaLink_conflict_link_not_guidislink.xml",
+      "source_expectation": "not bozo and not entries[0]['guidislink']",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "guidislink when isPermaLink=\"true\"",
+      "fixture": "tests/wellformed/rss/item_guid_isPermaLink_guidislink.xml",
+      "source_expectation": "not bozo and entries[0]['guidislink']",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid maps to link when isPermaLink=\"true\"",
+      "fixture": "tests/wellformed/rss/item_guid_isPermaLink_map_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://guid.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid maps to link",
+      "fixture": "tests/wellformed/rss/item_guid_map_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://guid.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid not permalink is not duplicated into link",
+      "fixture": "tests/wellformed/rss/item_guid_not_permalink.xml",
+      "source_expectation": "not bozo and not entries[0].has_key('link')",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid (not permalink) is not duplicated into link",
+      "fixture": "tests/wellformed/rss/item_guid_not_permalink_conflict_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://link.example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "not guidislink since item guid is not permalink",
+      "fixture": "tests/wellformed/rss/item_guid_not_permalink_not_guidislink.xml",
+      "source_expectation": "not bozo and not entries[0]['guidislink']",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "not guidislink because guid is not permalink",
+      "fixture": "tests/wellformed/rss/item_guid_not_permalink_not_guidislink_2.xml",
+      "source_expectation": "not bozo and not entries[0]['guidislink']",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item guid not permalink is not resolved as a URL",
+      "fixture": "tests/wellformed/rss/item_guid_not_permalink_not_url.xml",
+      "source_expectation": "not bozo and entries[0]['id'] == 'abc'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image link does not bleed into item link array",
+      "fixture": "tests/wellformed/rss/item_image_link_bleed.xml",
+      "source_expectation": "not bozo and len(entries[0]['links']) == 1",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "image link does not conflict with item link",
+      "fixture": "tests/wellformed/rss/item_image_link_conflict.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://item.TEST/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item link",
+      "fixture": "tests/wellformed/rss/item_link.xml",
+      "source_expectation": "not bozo and entries[0]['link'] == 'http://example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item madeup tags element",
+      "fixture": "tests/wellformed/rss/item_madeup_tags_element.xml",
+      "source_expectation": "not bozo and entries[0]['tags'][0]['term'] == 'tag one' and entries[0]['tags'][1]['term'] == 'tag two' and entries[0]['tags'][2]['term'] == 'category one'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item contains multiple dc:creator",
+      "fixture": "tests/wellformed/rss/item_multiple_dc_creator.xml",
+      "source_expectation": "not bozo and (entries[0]['authors'][0]['name'] == 'First Author') and (entries[0]['authors'][1]['name'] == 'Second Author')",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item pubDate",
+      "fixture": "tests/wellformed/rss/item_pubDate.xml",
+      "source_expectation": "not bozo and entries[0]['published'] == 'Thu, 01 Jan 2004 19:48:21 GMT'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item pubDate parsed and mapped to published_parsed",
+      "fixture": "tests/wellformed/rss/item_pubDate_map_updated_parsed.xml",
+      "source_expectation": "not bozo and entries[0]['published_parsed'] == (2004, 1, 1, 19, 48, 21, 3, 1, 0)",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item source",
+      "fixture": "tests/wellformed/rss/item_source.xml",
+      "source_expectation": "not bozo and entries[0]['source']['title'] == 'Example source'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item source url",
+      "fixture": "tests/wellformed/rss/item_source_url.xml",
+      "source_expectation": "not bozo and entries[0].source.href == 'http://example.com/'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item contains both summary and description elements",
+      "fixture": "tests/wellformed/rss/item_summary_and_description.xml",
+      "source_expectation": "not bozo and entries[0]['summary'] == 'Example summary' and entries[0]['content'][0]['value'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "item title",
+      "fixture": "tests/wellformed/rss/item_title.xml",
+      "source_expectation": "not bozo and entries[0]['title'] == 'Item 1 title'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "xhtml:body",
+      "fixture": "tests/wellformed/rss/item_xhtml_body.xml",
+      "source_expectation": "not bozo and entries[0]['content'][0]['value'] == '<p>Example content</p>'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "xhtml:body mode",
+      "fixture": "tests/wellformed/rss/item_xhtml_body_mode.xml",
+      "source_expectation": "1",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "xhtml:body type",
+      "fixture": "tests/wellformed/rss/item_xhtml_body_type.xml",
+      "source_expectation": "not bozo and entries[0]['content'][0]['type'] == 'application/xhtml+xml'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "rss newLocation",
+      "fixture": "tests/wellformed/rss/newlocation.xml",
+      "source_expectation": "not bozo and feed.newlocation == 'http://example/new'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_status": "pass",
+      "description": "RSS Userland namespace #1",
+      "fixture": "tests/wellformed/rss/rss_namespace_1.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "RSS Userland namespace #2",
+      "fixture": "tests/wellformed/rss/rss_namespace_2.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "RSS Userland namespace #3",
+      "fixture": "tests/wellformed/rss/rss_namespace_3.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_status": "pass",
+      "description": "RSS Userland namespace #4",
+      "fixture": "tests/wellformed/rss/rss_namespace_4.xml",
+      "source_expectation": "not bozo and feed['description'] == 'Example description'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 0.90",
+      "fixture": "tests/wellformed/rss/rss_version_090.xml",
+      "source_expectation": "not bozo and version == 'rss090'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 0.91 (Netscape)",
+      "fixture": "tests/wellformed/rss/rss_version_091_netscape.xml",
+      "source_expectation": "not bozo and version == 'rss091n'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 0.91 (Userland)",
+      "fixture": "tests/wellformed/rss/rss_version_091_userland.xml",
+      "source_expectation": "not bozo and version == 'rss091u'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 0.92",
+      "fixture": "tests/wellformed/rss/rss_version_092.xml",
+      "source_expectation": "not bozo and version == 'rss092'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 0.93",
+      "fixture": "tests/wellformed/rss/rss_version_093.xml",
+      "source_expectation": "not bozo and version == 'rss093'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 0.94",
+      "fixture": "tests/wellformed/rss/rss_version_094.xml",
+      "source_expectation": "not bozo and version == 'rss094'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 2.0",
+      "fixture": "tests/wellformed/rss/rss_version_20.xml",
+      "source_expectation": "not bozo and version == 'rss20'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 2.01",
+      "fixture": "tests/wellformed/rss/rss_version_201.xml",
+      "source_expectation": "not bozo and version == 'rss20'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": "reached end of input without finding a complete channel",
+          "kind": "parse-error"
+        }
+      ],
+      "automatic_status": "candidate",
+      "description": "RSS version 2.1",
+      "fixture": "tests/wellformed/rss/rss_version_21.xml",
+      "source_expectation": "not bozo and version == 'rss20'",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "validation": null
+    },
+    {
+      "automatic_status": "pass",
+      "description": "missing RSS version number",
+      "fixture": "tests/wellformed/rss/rss_version_missing.xml",
+      "source_expectation": "not bozo and version == 'rss'",
+      "validation": {
+        "details": "relative URL without a base",
+        "status": "error"
+      }
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "include_paths": [
+      "tests/wellformed/rss",
+      "tests/wellformed/rdf"
+    ],
+    "repository": "https://github.com/kurtmckee/feedparser",
+    "revision": "a22c5521cbb109871f1a2318948581901bd47e26"
+  },
+  "summary": {
+    "candidates": 21,
+    "parse_errors_observed": 15,
+    "passed": 182,
+    "roundtrip_errors": 6,
+    "total": 203
+  }
+}

@@ -1,0 +1,1740 @@
+{
+  "excluded_fixtures": [
+    {
+      "fixture": "version_rss_093.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "0.93"
+    },
+    {
+      "fixture": "version_rss_094.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "0.94"
+    },
+    {
+      "fixture": "version_rss_201.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "2.01"
+    },
+    {
+      "fixture": "version_rss_21.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "2.1"
+    },
+    {
+      "fixture": "version_rss_missing.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": ""
+    }
+  ],
+  "experiment": {
+    "crate_revision": "5f7dea4784a0a38a5d8dc2d9b0a685d8cb4df3eb",
+    "note": "Internal discovery draft; candidate differences are not confirmed defects"
+  },
+  "findings": [
+    {
+      "details": [
+        "channel.textInput: actual=<missing> expected=<object>"
+      ],
+      "fixture": "issue_275_unknown_children.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "ill-formed document: entity or character reference not closed: `;` not found before end of input"
+      ],
+      "fixture": "issue_305_bare_ampersand.xml",
+      "kind": "parse-error",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].link: actual=post expected=https://example.com/feeds/post",
+        "channel.items[1].link: actual=post expected=https://example.com/feeds/archive/post",
+        "channel.items[2].link: actual=#part expected=https://example.com/feeds/feed.xml#part"
+      ],
+      "fixture": "issue_358_xml_base_file.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.description: actual= expected=<p>Feed Description</p>"
+      ],
+      "fixture": "rdf_channel_description_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.link: actual=http://example2.org expected=http://example3.org"
+      ],
+      "fixture": "rdf_channel_links.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.title: actual= expected=<p>Feed Title</p>"
+      ],
+      "fixture": "rdf_channel_title_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.image.title: actual= expected=<p>Image Title</p>"
+      ],
+      "fixture": "rdf_image_title_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.items[0].description: actual= expected=<p>Item Description</p>"
+      ],
+      "fixture": "rdf_item_description_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.items[0].link: actual=http://example2.org expected=http://example3.org"
+      ],
+      "fixture": "rdf_item_links.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.items[0].title: actual= expected=<p>Item Title</p>"
+      ],
+      "fixture": "rdf_item_title_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.textInput.description: actual= expected=<p>TextInput Description</p>"
+      ],
+      "fixture": "rdf_textinput_description_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.textInput.name: actual= expected=<p>TextInput Name</p>"
+      ],
+      "fixture": "rdf_textinput_name_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "channel.categories[0].value: actual= expected=<p>Feed Category 1</p>",
+        "channel.categories[1].value: actual= expected=<p>Feed Category 2</p>"
+      ],
+      "fixture": "rss_channel_category_escaped_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.description: actual= expected=<p>Feed Description</p>"
+      ],
+      "fixture": "rss_channel_description_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.generator: actual= expected=<p>Feed Generator</p>"
+      ],
+      "fixture": "rss_channel_generator_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].author: actual= expected=<p>Item Author</p>"
+      ],
+      "fixture": "rss_channel_item_author_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].categories[0].value: actual= expected=<p>Item Category 1</p>",
+        "channel.items[0].categories[1].value: actual= expected=<p>Item Category 2</p>"
+      ],
+      "fixture": "rss_channel_item_category_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].description: actual= expected=<p>Item Description</p>"
+      ],
+      "fixture": "rss_channel_item_description_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].guid.value: actual= expected=<p>abc123</p>"
+      ],
+      "fixture": "rss_channel_item_guid_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].title: actual=ab\bcd expected=abcd"
+      ],
+      "fixture": "rss_channel_item_illegal_char.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].link: actual=http://example2.org expected=http://example3.org"
+      ],
+      "fixture": "rss_channel_item_links.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.items[0].title: actual= expected=<p>Item Title</p>"
+      ],
+      "fixture": "rss_channel_item_title_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.docs: actual=help expected=http://example.org/feeds/help",
+        "channel.image.url: actual=logo.png expected=http://example.org/feeds/logo.png",
+        "channel.items[0].link: actual=post/1 expected=http://example.org/feeds/post/1",
+        "channel.items[0].comments: actual=post/1/comments expected=http://example.org/feeds/post/1/comments"
+      ],
+      "fixture": "rss_channel_item_xml_base.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "ill-formed document: expected `</language>`, but `</langauge>` was found"
+      ],
+      "fixture": "rss_channel_language.xml",
+      "kind": "parse-error",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.link: actual=http://example2.org expected=http://example3.org"
+      ],
+      "fixture": "rss_channel_links.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.managingEditor: actual= expected=<p>Feed Editor</p>"
+      ],
+      "fixture": "rss_channel_managingEditor_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.rating: actual= expected=<p>(PICS-1.1 \"http://www.rsac.org/ratingsv01.html\" l gen true comment \"RSACi North America Server\" for \"http://www.rsac.org\" on \"1996.04.16T08:15-0500\" r (n 0 s 0 v 0 l 0))</p>"
+      ],
+      "fixture": "rss_channel_rating_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.title: actual= expected=<p>Feed Title</p>"
+      ],
+      "fixture": "rss_channel_title_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "channel.webMaster: actual= expected=<p>Feed WebMaster</p>"
+      ],
+      "fixture": "rss_channel_webMaster_naked_markup.xml",
+      "kind": "field-mismatch",
+      "version": "2.0"
+    },
+    {
+      "details": [
+        "reached end of input without finding a complete channel"
+      ],
+      "fixture": "version_rdf_10.xml",
+      "kind": "parse-error",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "reached end of input without finding a complete channel"
+      ],
+      "fixture": "version_rdf_10_prefixed_namespace.xml",
+      "kind": "parse-error",
+      "version": "1.0"
+    },
+    {
+      "details": [
+        "reached end of input without finding a complete channel"
+      ],
+      "fixture": "version_rss_091_netscape.xml",
+      "kind": "parse-error",
+      "version": "0.91"
+    },
+    {
+      "details": [
+        "reached end of input without finding a complete channel"
+      ],
+      "fixture": "version_rss_091_userland.xml",
+      "kind": "parse-error",
+      "version": "0.91"
+    },
+    {
+      "details": [
+        "reached end of input without finding a complete channel"
+      ],
+      "fixture": "version_rss_092.xml",
+      "kind": "parse-error",
+      "version": "0.92"
+    },
+    {
+      "details": [
+        "reached end of input without finding a complete channel"
+      ],
+      "fixture": "version_rss_20.xml",
+      "kind": "parse-error",
+      "version": "2.0"
+    }
+  ],
+  "inventory": [
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_217_enclosure_children.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_275_channel_item_extensions.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.textInput: actual=<missing> expected=<object>"
+          ],
+          "fixture": "issue_275_unknown_children.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "issue_275_unknown_children.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_303_encoded_no_namespace.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_304_cloud_with_children.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "ill-formed document: entity or character reference not closed: `;` not found before end of input"
+          ],
+          "fixture": "issue_305_bare_ampersand.xml",
+          "kind": "parse-error",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "issue_305_bare_ampersand.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_309_namespace_whitespace.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_320_legacy_entity_prefix.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_338_atom_link_namespace.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_346_root_default_namespace.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_356_fragmented_extension_text.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].link: actual=post expected=https://example.com/feeds/post",
+            "channel.items[1].link: actual=post expected=https://example.com/feeds/archive/post",
+            "channel.items[2].link: actual=#part expected=https://example.com/feeds/feed.xml#part"
+          ],
+          "fixture": "issue_358_xml_base_file.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "issue_358_xml_base_file.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "issue_36_enclosure_text.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_description.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_description_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_description_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_description_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.description: actual= expected=<p>Feed Description</p>"
+          ],
+          "fixture": "rdf_channel_description_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_channel_description_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_link.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.link: actual=http://example2.org expected=http://example3.org"
+          ],
+          "fixture": "rdf_channel_links.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_channel_links.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_mixed_content.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_title.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_title_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_title_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_channel_title_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.title: actual= expected=<p>Feed Title</p>"
+          ],
+          "fixture": "rdf_channel_title_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_channel_title_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_link.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_mixed_content.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_title.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_title_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_title_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_title_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.image.title: actual= expected=<p>Image Title</p>"
+          ],
+          "fixture": "rdf_image_title_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_image_title_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_image_url.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_description.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_description_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_description_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_description_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].description: actual= expected=<p>Item Description</p>"
+          ],
+          "fixture": "rdf_item_description_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_item_description_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_link.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].link: actual=http://example2.org expected=http://example3.org"
+          ],
+          "fixture": "rdf_item_links.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_item_links.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_title.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_title_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_title_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_item_title_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].title: actual= expected=<p>Item Title</p>"
+          ],
+          "fixture": "rdf_item_title_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_item_title_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_mixed_content.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_description.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_description_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_description_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_description_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.textInput.description: actual= expected=<p>TextInput Description</p>"
+          ],
+          "fixture": "rdf_textinput_description_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_textinput_description_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_link.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_mixed_content.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_name.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_name_cdata_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_name_cdata_naked_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_name_escaped_markup.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.textInput.name: actual= expected=<p>TextInput Name</p>"
+          ],
+          "fixture": "rdf_textinput_name_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rdf_textinput_name_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rdf_textinput_title.xml",
+      "version": "1.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_atom_link_namespace_bindings.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_category.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_category_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_category_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.categories[0].value: actual= expected=<p>Feed Category 1</p>",
+            "channel.categories[1].value: actual= expected=<p>Feed Category 2</p>"
+          ],
+          "fixture": "rss_channel_category_escaped_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_category_escaped_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_category_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_cloud.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_copyright.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_copyright_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_copyright_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_copyright_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_copyright_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_description.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_description_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_description_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_description_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.description: actual= expected=<p>Feed Description</p>"
+          ],
+          "fixture": "rss_channel_description_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_description_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_docs.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_generator.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_generator_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_generator_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_generator_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.generator: actual= expected=<p>Feed Generator</p>"
+          ],
+          "fixture": "rss_channel_generator_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_generator_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_image.xml",
+      "version": "0.91"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_image_mixed_content.xml",
+      "version": "0.91"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_author.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_author_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_author_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_author_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].author: actual= expected=<p>Item Author</p>"
+          ],
+          "fixture": "rss_channel_item_author_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_author_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_category.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_category_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_category_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_category_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].categories[0].value: actual= expected=<p>Item Category 1</p>",
+            "channel.items[0].categories[1].value: actual= expected=<p>Item Category 2</p>"
+          ],
+          "fixture": "rss_channel_item_category_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_category_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_comments.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_content_encoded.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_content_encoded_variant_namespace.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_custom.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_description.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_description_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_description_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_description_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_description_mixed_cdata.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].description: actual= expected=<p>Item Description</p>"
+          ],
+          "fixture": "rss_channel_item_description_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_description_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_enclosure.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_guid.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_guid_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_guid_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_guid_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].guid.value: actual= expected=<p>abc123</p>"
+          ],
+          "fixture": "rss_channel_item_guid_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_guid_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_guid_no_permalink.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].title: actual=ab\bcd expected=abcd"
+          ],
+          "fixture": "rss_channel_item_illegal_char.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_illegal_char.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_link.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].link: actual=http://example2.org expected=http://example3.org"
+          ],
+          "fixture": "rss_channel_item_links.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_links.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_pubDate.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_source.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_title.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_title_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_title_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_title_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.items[0].title: actual= expected=<p>Item Title</p>"
+          ],
+          "fixture": "rss_channel_item_title_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_title_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_item_uri_at_protocol.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.docs: actual=help expected=http://example.org/feeds/help",
+            "channel.image.url: actual=logo.png expected=http://example.org/feeds/logo.png",
+            "channel.items[0].link: actual=post/1 expected=http://example.org/feeds/post/1",
+            "channel.items[0].comments: actual=post/1/comments expected=http://example.org/feeds/post/1/comments"
+          ],
+          "fixture": "rss_channel_item_xml_base.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_item_xml_base.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "ill-formed document: expected `</language>`, but `</langauge>` was found"
+          ],
+          "fixture": "rss_channel_language.xml",
+          "kind": "parse-error",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_language.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_lastBuildDate.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_link.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.link: actual=http://example2.org expected=http://example3.org"
+          ],
+          "fixture": "rss_channel_links.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_links.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_managingEditor.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_managingEditor_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_managingEditor_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_managingEditor_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.managingEditor: actual= expected=<p>Feed Editor</p>"
+          ],
+          "fixture": "rss_channel_managingEditor_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_managingEditor_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_mixed_content.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_pubDate.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_rating.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_rating_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_rating_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_rating_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.rating: actual= expected=<p>(PICS-1.1 \"http://www.rsac.org/ratingsv01.html\" l gen true comment \"RSACi North America Server\" for \"http://www.rsac.org\" on \"1996.04.16T08:15-0500\" r (n 0 s 0 v 0 l 0))</p>"
+          ],
+          "fixture": "rss_channel_rating_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_rating_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_skipDays.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_skipDays_mixed_content.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_skipHours.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_skipHours_mixed_content.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_textInput.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_textInput_mixed_content.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_title.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_title_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_title_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_title_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.title: actual= expected=<p>Feed Title</p>"
+          ],
+          "fixture": "rss_channel_title_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_title_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_ttl.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_webMaster.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_webMaster_cdata_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_webMaster_cdata_naked_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_channel_webMaster_escaped_markup.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "channel.webMaster: actual= expected=<p>Feed WebMaster</p>"
+          ],
+          "fixture": "rss_channel_webMaster_naked_markup.xml",
+          "kind": "field-mismatch",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "rss_channel_webMaster_naked_markup.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "rss_mixed_content.xml",
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "version_rdf_090.xml",
+      "version": "0.9"
+    },
+    {
+      "automatic_status": "pass",
+      "fixture": "version_rdf_090_alternate_namespace.xml",
+      "version": "0.9"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "reached end of input without finding a complete channel"
+          ],
+          "fixture": "version_rdf_10.xml",
+          "kind": "parse-error",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "version_rdf_10.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "reached end of input without finding a complete channel"
+          ],
+          "fixture": "version_rdf_10_prefixed_namespace.xml",
+          "kind": "parse-error",
+          "version": "1.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "version_rdf_10_prefixed_namespace.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "1.0"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "reached end of input without finding a complete channel"
+          ],
+          "fixture": "version_rss_091_netscape.xml",
+          "kind": "parse-error",
+          "version": "0.91"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "version_rss_091_netscape.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "0.91"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "reached end of input without finding a complete channel"
+          ],
+          "fixture": "version_rss_091_userland.xml",
+          "kind": "parse-error",
+          "version": "0.91"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "version_rss_091_userland.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "0.91"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "reached end of input without finding a complete channel"
+          ],
+          "fixture": "version_rss_092.xml",
+          "kind": "parse-error",
+          "version": "0.92"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "version_rss_092.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "0.92"
+    },
+    {
+      "automatic_status": "excluded",
+      "fixture": "version_rss_093.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "0.93"
+    },
+    {
+      "automatic_status": "excluded",
+      "fixture": "version_rss_094.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "0.94"
+    },
+    {
+      "automatic_findings": [
+        {
+          "details": [
+            "reached end of input without finding a complete channel"
+          ],
+          "fixture": "version_rss_20.xml",
+          "kind": "parse-error",
+          "version": "2.0"
+        }
+      ],
+      "automatic_status": "candidate",
+      "fixture": "version_rss_20.xml",
+      "triage": {
+        "issue": null,
+        "reason": null,
+        "status": "pending"
+      },
+      "version": "2.0"
+    },
+    {
+      "automatic_status": "excluded",
+      "fixture": "version_rss_201.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "2.01"
+    },
+    {
+      "automatic_status": "excluded",
+      "fixture": "version_rss_21.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": "2.1"
+    },
+    {
+      "automatic_status": "excluded",
+      "fixture": "version_rss_missing.xml",
+      "reason": "unsupported or missing RSS version",
+      "version": ""
+    }
+  ],
+  "schema_version": 2,
+  "source": {
+    "path": "testdata/parser/rss",
+    "repository": "https://github.com/mmcdole/gofeed",
+    "revision": "253ddbe673480b9bd9abdd114755cde33f12afc4"
+  },
+  "summary": {
+    "excluded": 5,
+    "field_mismatches": 27,
+    "finding_records": 35,
+    "parse_errors": 8,
+    "passed": 131,
+    "roundtrip_errors": 0,
+    "roundtrip_mismatches": 0,
+    "total": 171
+  },
+  "supported_versions": [
+    "0.9",
+    "0.90",
+    "0.91",
+    "0.92",
+    "1.0",
+    "2.0"
+  ]
+}
