@@ -1,6 +1,6 @@
 {
   "experiment": {
-    "crate_revision": "5f7dea4784a0a38a5d8dc2d9b0a685d8cb4df3eb",
+    "crate_revision": "807b4f97567a93cc9f89f1c6ed068e9f00adcfb7",
     "mode": "feedparser-wellformed",
     "note": "Internal discovery draft; candidate differences are not confirmed defects"
   },
@@ -18,8 +18,8 @@
       "source_expectation": "not bozo",
       "triage": {
         "issue": null,
-        "reason": null,
-        "status": "pending"
+        "reason": "原 fixture 不含 channel，Eof 不能证明 DOCTYPE 处理错误；另用带完整 channel 的最小测试确认实体语义问题并记录在 Issue #9",
+        "status": "not-a-bug"
       },
       "validation": null
     },
@@ -142,9 +142,9 @@
       "fixture": "tests/wellformed/rdf/rss_version_10_not_default_ns.xml",
       "source_expectation": "not bozo and version == 'rss10'",
       "triage": {
-        "issue": null,
-        "reason": null,
-        "status": "pending"
+        "issue": "https://github.com/DCjanus/rss/issues/5",
+        "reason": "与 gofeed 独立覆盖同一 RSS 1.0 显式前缀行为，最小测试在当前基线返回 Eof",
+        "status": "confirmed"
       },
       "validation": null
     },

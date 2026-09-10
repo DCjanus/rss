@@ -27,7 +27,7 @@
     }
   ],
   "experiment": {
-    "crate_revision": "5f7dea4784a0a38a5d8dc2d9b0a685d8cb4df3eb",
+    "crate_revision": "807b4f97567a93cc9f89f1c6ed068e9f00adcfb7",
     "note": "Internal discovery draft; candidate differences are not confirmed defects"
   },
   "findings": [
@@ -1183,9 +1183,9 @@
       "automatic_status": "candidate",
       "fixture": "rss_channel_item_illegal_char.xml",
       "triage": {
-        "issue": null,
-        "reason": null,
-        "status": "pending"
+        "issue": "https://github.com/DCjanus/rss/issues/10",
+        "reason": "fixture 本身是非法 XML；由最小构造测试确认序列化器仍会无错误写出同类 U+0008 非法字符",
+        "status": "confirmed"
       },
       "version": "2.0"
     },
@@ -1596,9 +1596,9 @@
       "automatic_status": "candidate",
       "fixture": "version_rdf_10_prefixed_namespace.xml",
       "triage": {
-        "issue": null,
-        "reason": null,
-        "status": "pending"
+        "issue": "https://github.com/DCjanus/rss/issues/5",
+        "reason": "XML expanded name 与独立 feedparser 语料均确认 RSS 1.0 核心元素不能依赖固定词法前缀",
+        "status": "confirmed"
       },
       "version": "1.0"
     },

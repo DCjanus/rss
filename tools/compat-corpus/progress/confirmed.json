@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "baseline": "807b4f97567a93cc9f89f1c6ed068e9f00adcfb7",
+  "findings": [
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/5",
+      "behavior": "RSS 1.0 核心元素必须按命名空间 URI 和 local name 识别",
+      "tests": ["rss1_core_elements_are_matched_by_namespace_uri"],
+      "fixtures": [
+        "gofeed:testdata/parser/rss/version_rdf_10_prefixed_namespace.xml",
+        "feedparser:tests/wellformed/rdf/rss_version_10_not_default_ns.xml"
+      ]
+    },
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/6",
+      "behavior": "category@domain 是 taxonomy 标识符而非强制绝对 URL",
+      "tests": ["category_domain_accepts_the_rss_specification_example"],
+      "fixtures": [
+        "feedvalidator:testcases/rss/must/rss20_spec_sample_noerror.xml"
+      ]
+    },
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/7",
+      "behavior": "cloud@domain 是主机名而非带 scheme 的绝对 URL",
+      "tests": ["cloud_domain_accepts_the_rss_specification_example"],
+      "fixtures": [
+        "feedvalidator:testcases/rss20/element-channel-cloud/cloud_domain.xml",
+        "feedvalidator:testcases/rss20/introduction/rss-2.0-sample-noerror.xml"
+      ]
+    },
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/8",
+      "behavior": "Validate 必须检查 RSS 2.0 内容模型的必填与条件必填内容",
+      "tests": [
+        "channel_validation_rejects_missing_required_text",
+        "item_validation_requires_title_or_description",
+        "image_validation_rejects_missing_title",
+        "text_input_validation_rejects_missing_required_text"
+      ],
+      "fixtures": [
+        "feedvalidator:testcases/rss20/element-channel/missing_channel_title.xml",
+        "feedvalidator:testcases/rss20/element-channel/missing_channel_description.xml",
+        "feedvalidator:testcases/rss20/element-channel-item/invalid_item_no_title_or_description.xml",
+        "feedvalidator:testcases/rss20/element-channel-image-title/invalid_image_no_title.xml",
+        "feedvalidator:testcases/rss20/element-channel-textinput/invalid_textInput_no_title.xml",
+        "feedvalidator:testcases/rss20/element-channel-textinput/invalid_textInput_no_description.xml",
+        "feedvalidator:testcases/rss20/element-channel-textinput/invalid_textInput_no_name.xml"
+      ]
+    },
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/9",
+      "behavior": "XML 内部 general entity 必须展开，未声明引用必须拒绝",
+      "tests": [
+        "declared_internal_general_entities_are_expanded",
+        "undeclared_general_entities_are_rejected"
+      ],
+      "fixtures": [
+        "feedparser:tests/wellformed/rdf/doctype_contains_entity_decl.xml",
+        "feedvalidator:testcases/rss/must/rss91u_entity.xml"
+      ]
+    },
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/10",
+      "behavior": "序列化器不得成功生成含 XML 1.0 非法字符的文档",
+      "tests": ["serialization_rejects_xml_1_0_illegal_characters"],
+      "fixtures": [
+        "gofeed:testdata/parser/rss/rss_channel_item_illegal_char.xml"
+      ]
+    },
+    {
+      "issue": "https://github.com/DCjanus/rss/issues/11",
+      "behavior": "已知 Dublin Core 扩展中的 RDF 结构化内容不得在往返中丢失",
+      "tests": ["nested_dublin_core_content_survives_roundtrip"],
+      "fixtures": [
+        "feedvalidator:testcases/rss/must/foaf_name.xml",
+        "feedvalidator:testcases/rss/must/foaf_person.xml"
+      ]
+    }
+  ]
+}

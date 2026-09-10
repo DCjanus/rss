@@ -1,6 +1,6 @@
 {
   "experiment": {
-    "crate_revision": "5f7dea4784a0a38a5d8dc2d9b0a685d8cb4df3eb",
+    "crate_revision": "807b4f97567a93cc9f89f1c6ed068e9f00adcfb7",
     "mode": "feedvalidator",
     "note": "Internal discovery draft; candidate differences are not confirmed defects"
   },
@@ -326,9 +326,9 @@
       "fixture": "testcases/rss/must/foaf_name.xml",
       "source_expectation": "!UndefinedElement",
       "triage": {
-        "issue": null,
-        "reason": null,
-        "status": "pending"
+        "issue": "https://github.com/DCjanus/rss/issues/11",
+        "reason": "RSS 1.0 允许 RDF rich content；解析后 dc:creator 的 foaf:name 子树在序列化时丢失",
+        "status": "confirmed"
       },
       "validation": {
         "details": "relative URL without a base",
@@ -350,9 +350,9 @@
       "fixture": "testcases/rss/must/foaf_person.xml",
       "source_expectation": "!UndefinedElement",
       "triage": {
-        "issue": null,
-        "reason": null,
-        "status": "pending"
+        "issue": "https://github.com/DCjanus/rss/issues/11",
+        "reason": "与 foaf_name.xml 属于同一已知 Dublin Core 扩展结构化值丢失问题",
+        "status": "confirmed"
       },
       "validation": {
         "details": "relative URL without a base",
@@ -1409,9 +1409,9 @@
       "fixture": "testcases/rss/must/rss91u_entity.xml",
       "source_expectation": "SAXError",
       "triage": {
-        "issue": null,
-        "reason": null,
-        "status": "pending"
+        "issue": "https://github.com/DCjanus/rss/issues/9",
+        "reason": "XML 1.0 要求内部子集场景中的实体引用必须已声明；当前解析器把未声明引用保留为字面字符串并接受",
+        "status": "confirmed"
       },
       "validation": {
         "status": "ok"

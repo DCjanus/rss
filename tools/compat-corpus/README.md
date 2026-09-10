@@ -29,6 +29,10 @@ ignored by Git. It writes the reproducible inventory and triage checkpoint to
 Candidate records have a manually maintained `triage` object whose status is
 preserved across reruns at the same source revision. Use `pending`, `excluded`,
 `not-a-bug`, or `confirmed`, and record the reason and fork issue when relevant.
+Confirmed behavior-level findings are also indexed in `progress/confirmed.json`;
+this is the stable bridge between several source fixtures, the minimized ignored
+tests in `tests/compat_confirmed.rs`, and the fork-only issues. One issue may
+cover several fixtures when they demonstrate the same underlying behavior.
 The report also records the tested crate revision and all fixture paths, so a
 new contributor can reproduce the inventory and resume at the first `pending`
 candidate without reconstructing prior local state.
@@ -52,3 +56,12 @@ Before recording a candidate as a defect:
 3. Distinguish malformed-input tolerance from correctness.
 4. Minimize the fixture and reproduce it against the current baseline.
 5. Prove that the proposed Rust regression test fails for the target behavior.
+
+Run the confirmed red tests explicitly with:
+
+```console
+cargo test --all-features --test compat_confirmed -- --ignored
+```
+
+They are ignored during the normal suite because each assertion describes the
+desired behavior and intentionally remains red until its linked issue is fixed.
