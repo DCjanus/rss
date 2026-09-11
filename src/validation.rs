@@ -97,7 +97,20 @@ macro_rules! validate {
 
 impl Validate for Channel {
     fn validate(&self) -> Result<(), ValidationError> {
-        Url::parse(self.link())?;
+        let title = self.title().ok_or_else(|| {
+            ValidationError::Validation("Channel is missing required title".into())
+        })?;
+        validate!(!title.is_empty(), "Channel title must not be empty");
+
+        let link = self.link().ok_or_else(|| {
+            ValidationError::Validation("Channel is missing required link".into())
+        })?;
+        Url::parse(link)?;
+
+        validate!(
+            self.description().is_some(),
+            "Channel is missing required description"
+        );
 
         for category in self.categories() {
             category.validate()?;
@@ -201,15 +214,40 @@ impl Validate for Enclosure {
 
 impl Validate for TextInput {
     fn validate(&self) -> Result<(), ValidationError> {
-        Url::parse(self.link())?;
+        validate!(
+            self.title().is_some(),
+            "Text input is missing required title"
+        );
+        validate!(
+            self.description().is_some(),
+            "Text input is missing required description"
+        );
+        let name = self.name().ok_or_else(|| {
+            ValidationError::Validation("Text input is missing required name".into())
+        })?;
+        validate!(!name.is_empty(), "Text input name must not be empty");
+        let link = self.link().ok_or_else(|| {
+            ValidationError::Validation("Text input is missing required link".into())
+        })?;
+        Url::parse(link)?;
         Ok(())
     }
 }
 
 impl Validate for Image {
     fn validate(&self) -> Result<(), ValidationError> {
-        Url::parse(self.link())?;
-        Url::parse(self.url())?;
+        let url = self
+            .url()
+            .ok_or_else(|| ValidationError::Validation("Image is missing required url".into()))?;
+        Url::parse(url)?;
+        let title = self
+            .title()
+            .ok_or_else(|| ValidationError::Validation("Image is missing required title".into()))?;
+        validate!(!title.is_empty(), "Image title must not be empty");
+        let link = self
+            .link()
+            .ok_or_else(|| ValidationError::Validation("Image is missing required link".into()))?;
+        Url::parse(link)?;
 
         if let Some(width) = self.width() {
             let width = width.parse::<i64>()?;
@@ -233,6 +271,14 @@ impl Validate for Image {
 
 impl Validate for Item {
     fn validate(&self) -> Result<(), ValidationError> {
+        validate!(
+            self.title().is_some() || self.description().is_some(),
+            "Item is missing both title and description"
+        );
+        if let Some(title) = self.title() {
+            validate!(!title.is_empty(), "Item title must not be empty");
+        }
+
         if let Some(link) = self.link() {
             Url::parse(link)?;
         }

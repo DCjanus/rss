@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **Breaking:** Preserve the distinction between missing and empty required RSS
+  elements. `Channel`, `Image`, and `TextInput` required element fields now use
+  `Option<String>`, and validation checks the RSS content model separately from
+  non-empty text constraints.
+
 ## 2.1.2 - 2026-09-10
 
 - Escape XML special characters in namespace URIs when writing channels. [`#196`](https://github.com/rust-syndication/rss/pull/196)

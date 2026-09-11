@@ -15,7 +15,7 @@ use quick_xml::Writer;
 
 use crate::error::Error;
 use crate::toxml::{ToXml, WriterExt};
-use crate::util::{decode, element_text, skip};
+use crate::util::{decode, element_text, element_text_with_empty, skip};
 
 /// Represents an image in an RSS feed.
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -31,11 +31,14 @@ use crate::util::{decode, element_text, skip};
 )]
 pub struct Image {
     /// The URL of the image.
-    pub url: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub url: Option<String>,
     /// A description of the image. This is used in the HTML `alt` attribute.
-    pub title: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub title: Option<String>,
     /// The URL that the image links to.
-    pub link: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub link: Option<String>,
     /// The width of the image.
     pub width: Option<String>,
     /// The height of the image.
@@ -54,10 +57,10 @@ impl Image {
     ///
     /// let mut image = Image::default();
     /// image.set_url("http://example.com/image.png");
-    /// assert_eq!(image.url(), "http://example.com/image.png");
+    /// assert_eq!(image.url(), Some("http://example.com/image.png"));
     /// ```
-    pub fn url(&self) -> &str {
-        self.url.as_str()
+    pub fn url(&self) -> Option<&str> {
+        self.url.as_deref()
     }
 
     /// Set the URL of this image.
@@ -68,13 +71,13 @@ impl Image {
     /// use rss::Image;
     ///
     /// let mut image = Image::default();
-    /// image.set_url("http://example.com/image.png");
+    /// image.set_url("http://example.com/image.png".to_string());
     /// ```
     pub fn set_url<V>(&mut self, url: V)
     where
         V: Into<String>,
     {
-        self.url = url.into();
+        self.url = Some(url.into());
     }
 
     /// Return the description of this image.
@@ -88,10 +91,10 @@ impl Image {
     ///
     /// let mut image = Image::default();
     /// image.set_title("Example image");
-    /// assert_eq!(image.title(), "Example image");
+    /// assert_eq!(image.title(), Some("Example image"));
     /// ```
-    pub fn title(&self) -> &str {
-        self.title.as_str()
+    pub fn title(&self) -> Option<&str> {
+        self.title.as_deref()
     }
 
     /// Set the description of this image.
@@ -104,13 +107,13 @@ impl Image {
     /// use rss::Image;
     ///
     /// let mut image = Image::default();
-    /// image.set_title("Example image");
+    /// image.set_title("Example image".to_string());
     /// ```
     pub fn set_title<V>(&mut self, title: V)
     where
         V: Into<String>,
     {
-        self.title = title.into();
+        self.title = Some(title.into());
     }
 
     /// Return the URL that this image links to.
@@ -122,9 +125,9 @@ impl Image {
     ///
     /// let mut image = Image::default();
     /// image.set_link("http://example.com");
-    /// assert_eq!(image.link(), "http://example.com");
-    pub fn link(&self) -> &str {
-        self.link.as_str()
+    /// assert_eq!(image.link(), Some("http://example.com"));
+    pub fn link(&self) -> Option<&str> {
+        self.link.as_deref()
     }
 
     /// Set the URL that this image links to.
@@ -135,12 +138,12 @@ impl Image {
     /// use rss::Image;
     ///
     /// let mut image = Image::default();
-    /// image.set_link("http://example.com");
+    /// image.set_link("http://example.com".to_string());
     pub fn set_link<V>(&mut self, link: V)
     where
         V: Into<String>,
     {
-        self.link = link.into();
+        self.link = Some(link.into());
     }
 
     /// Return the width of this image.
@@ -253,9 +256,9 @@ impl Image {
         loop {
             match reader.read_event_into(&mut buf)? {
                 Event::Start(element) => match decode(element.name().as_ref(), reader)?.as_ref() {
-                    "url" => image.url = element_text(reader)?.unwrap_or_default(),
-                    "title" => image.title = element_text(reader)?.unwrap_or_default(),
-                    "link" => image.link = element_text(reader)?.unwrap_or_default(),
+                    "url" => image.url = Some(element_text_with_empty(reader)?),
+                    "title" => image.title = Some(element_text_with_empty(reader)?),
+                    "link" => image.link = Some(element_text_with_empty(reader)?),
                     "width" => image.width = element_text(reader)?,
                     "height" => image.height = element_text(reader)?,
                     "description" => image.description = element_text(reader)?,
@@ -279,9 +282,15 @@ impl ToXml for Image {
 
         writer.write_event(Event::Start(BytesStart::new(name)))?;
 
-        writer.write_text_element("url", &self.url)?;
-        writer.write_text_element("title", &self.title)?;
-        writer.write_text_element("link", &self.link)?;
+        if let Some(url) = self.url.as_ref() {
+            writer.write_text_element("url", url)?;
+        }
+        if let Some(title) = self.title.as_ref() {
+            writer.write_text_element("title", title)?;
+        }
+        if let Some(link) = self.link.as_ref() {
+            writer.write_text_element("link", link)?;
+        }
 
         if let Some(width) = self.width.as_ref() {
             writer.write_text_element("width", width)?;

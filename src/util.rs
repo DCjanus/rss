@@ -38,7 +38,7 @@ pub(crate) fn skip<B: BufRead>(end: QName<'_>, reader: &mut Reader<B>) -> Result
     Ok(())
 }
 
-pub fn element_text<R: BufRead>(reader: &mut Reader<R>) -> Result<Option<String>, Error> {
+pub fn element_text_with_empty<R: BufRead>(reader: &mut Reader<R>) -> Result<String, Error> {
     let mut content = String::new();
     let mut buf = Vec::new();
 
@@ -72,5 +72,9 @@ pub fn element_text<R: BufRead>(reader: &mut Reader<R>) -> Result<Option<String>
         buf.clear();
     }
 
-    Ok(Some(content.trim().to_owned()).filter(|c| !c.is_empty()))
+    Ok(content.trim().to_owned())
+}
+
+pub fn element_text<R: BufRead>(reader: &mut Reader<R>) -> Result<Option<String>, Error> {
+    Ok(Some(element_text_with_empty(reader)?).filter(|content| !content.is_empty()))
 }

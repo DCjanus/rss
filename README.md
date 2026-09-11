@@ -118,7 +118,10 @@ For convenience, [Dublin Core](http://dublincore.org/documents/dces/), [Syndicat
 
 ## Invalid Feeds
 
-As a best effort to parse invalid feeds `rss` will default elements declared as "required" by the RSS 2.0 specification to an empty string.
+As a best effort, `rss` will parse feeds that omit elements declared as "required" by
+the RSS 2.0 specification. Required element fields use `Option<String>` so callers can
+distinguish an omitted element (`None`) from a present but empty element (`Some("")`).
+Use the optional `validation` feature and the `Validate` trait to reject invalid feeds.
 
 ## License
 

@@ -15,7 +15,7 @@ use quick_xml::Writer;
 
 use crate::error::Error;
 use crate::toxml::{ToXml, WriterExt};
-use crate::util::{decode, element_text, skip};
+use crate::util::{decode, element_text_with_empty, skip};
 
 /// Represents a text input for an RSS channel.
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -31,13 +31,17 @@ use crate::util::{decode, element_text, skip};
 )]
 pub struct TextInput {
     /// The label of the Submit button for the text input.
-    pub title: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub title: Option<String>,
     /// A description of the text input.
-    pub description: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub description: Option<String>,
     /// The name of the text object.
-    pub name: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub name: Option<String>,
     /// The URL of the CGI script that processes the text input request.
-    pub link: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub link: Option<String>,
 }
 
 impl TextInput {
@@ -50,10 +54,10 @@ impl TextInput {
     ///
     /// let mut text_input = TextInput::default();
     /// text_input.set_title("Input Title");
-    /// assert_eq!(text_input.title(), "Input Title");
+    /// assert_eq!(text_input.title(), Some("Input Title"));
     /// ```
-    pub fn title(&self) -> &str {
-        self.title.as_str()
+    pub fn title(&self) -> Option<&str> {
+        self.title.as_deref()
     }
 
     /// Set the title for this text field.
@@ -64,13 +68,13 @@ impl TextInput {
     /// use rss::TextInput;
     ///
     /// let mut text_input = TextInput::default();
-    /// text_input.set_title("Input Title");
+    /// text_input.set_title("Input Title".to_string());
     /// ```
     pub fn set_title<V>(&mut self, title: V)
     where
         V: Into<String>,
     {
-        self.title = title.into();
+        self.title = Some(title.into());
     }
 
     /// Return the description of this text field.
@@ -82,10 +86,10 @@ impl TextInput {
     ///
     /// let mut text_input = TextInput::default();
     /// text_input.set_description("Input description");
-    /// assert_eq!(text_input.description(), "Input description");
+    /// assert_eq!(text_input.description(), Some("Input description"));
     /// ```
-    pub fn description(&self) -> &str {
-        self.description.as_str()
+    pub fn description(&self) -> Option<&str> {
+        self.description.as_deref()
     }
 
     /// Set the description of this text field.
@@ -96,13 +100,13 @@ impl TextInput {
     /// use rss::TextInput;
     ///
     /// let mut text_input = TextInput::default();
-    /// text_input.set_description("Input description");
+    /// text_input.set_description("Input description".to_string());
     /// ```
     pub fn set_description<V>(&mut self, description: V)
     where
         V: Into<String>,
     {
-        self.description = description.into();
+        self.description = Some(description.into());
     }
 
     /// Return the name of the text object in this input.
@@ -114,10 +118,10 @@ impl TextInput {
     ///
     /// let mut text_input = TextInput::default();
     /// text_input.set_name("Input name");
-    /// assert_eq!(text_input.name(), "Input name");
+    /// assert_eq!(text_input.name(), Some("Input name"));
     /// ```
-    pub fn name(&self) -> &str {
-        self.name.as_str()
+    pub fn name(&self) -> Option<&str> {
+        self.name.as_deref()
     }
 
     /// Set the name of the text object in this input.
@@ -128,13 +132,13 @@ impl TextInput {
     /// use rss::TextInput;
     ///
     /// let mut text_input = TextInput::default();
-    /// text_input.set_name("Input name");;
+    /// text_input.set_name("Input name".to_string());;
     /// ```
     pub fn set_name<V>(&mut self, name: V)
     where
         V: Into<String>,
     {
-        self.name = name.into();
+        self.name = Some(name.into());
     }
 
     /// Return the URL of the GCI script that processes the text input request.
@@ -146,10 +150,10 @@ impl TextInput {
     ///
     /// let mut text_input = TextInput::default();
     /// text_input.set_link("http://example.com/submit");
-    /// assert_eq!(text_input.link(), "http://example.com/submit");
+    /// assert_eq!(text_input.link(), Some("http://example.com/submit"));
     /// ```
-    pub fn link(&self) -> &str {
-        self.link.as_str()
+    pub fn link(&self) -> Option<&str> {
+        self.link.as_deref()
     }
 
     /// Set the URL of the GCI script that processes the text input request.
@@ -160,13 +164,13 @@ impl TextInput {
     /// use rss::TextInput;
     ///
     /// let mut text_input = TextInput::default();
-    /// text_input.set_link("http://example.com/submit");
+    /// text_input.set_link("http://example.com/submit".to_string());
     /// ```
     pub fn set_link<V>(&mut self, link: V)
     where
         V: Into<String>,
     {
-        self.link = link.into();
+        self.link = Some(link.into());
     }
 }
 
@@ -179,12 +183,12 @@ impl TextInput {
         loop {
             match reader.read_event_into(&mut buf)? {
                 Event::Start(element) => match decode(element.name().as_ref(), reader)?.as_ref() {
-                    "title" => text_input.title = element_text(reader)?.unwrap_or_default(),
+                    "title" => text_input.title = Some(element_text_with_empty(reader)?),
                     "description" => {
-                        text_input.description = element_text(reader)?.unwrap_or_default()
+                        text_input.description = Some(element_text_with_empty(reader)?)
                     }
-                    "name" => text_input.name = element_text(reader)?.unwrap_or_default(),
-                    "link" => text_input.link = element_text(reader)?.unwrap_or_default(),
+                    "name" => text_input.name = Some(element_text_with_empty(reader)?),
+                    "link" => text_input.link = Some(element_text_with_empty(reader)?),
                     _ => skip(element.name(), reader)?,
                 },
                 Event::End(_) => break,
@@ -205,10 +209,18 @@ impl ToXml for TextInput {
 
         writer.write_event(Event::Start(BytesStart::new(name)))?;
 
-        writer.write_text_element("title", &self.title)?;
-        writer.write_text_element("description", &self.description)?;
-        writer.write_text_element("name", &self.name)?;
-        writer.write_text_element("link", &self.link)?;
+        if let Some(title) = self.title.as_ref() {
+            writer.write_text_element("title", title)?;
+        }
+        if let Some(description) = self.description.as_ref() {
+            writer.write_text_element("description", description)?;
+        }
+        if let Some(name) = self.name.as_ref() {
+            writer.write_text_element("name", name)?;
+        }
+        if let Some(link) = self.link.as_ref() {
+            writer.write_text_element("link", link)?;
+        }
 
         writer.write_event(Event::End(BytesEnd::new(name)))?;
         Ok(())
