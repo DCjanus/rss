@@ -32,7 +32,7 @@ use crate::image::Image;
 use crate::item::Item;
 use crate::textinput::TextInput;
 use crate::toxml::{ToXml, WriterExt};
-use crate::util::{decode, element_text, skip};
+use crate::util::{decode, element_text, element_text_with_empty, skip};
 
 /// Represents the channel of an RSS feed.
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -48,11 +48,14 @@ use crate::util::{decode, element_text, skip};
 )]
 pub struct Channel {
     /// The name of the channel.
-    pub title: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub title: Option<String>,
     /// The URL for the website corresponding to the channel.
-    pub link: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub link: Option<String>,
     /// A description of the channel.
-    pub description: String,
+    #[cfg_attr(feature = "builders", builder(setter(into, strip_option)))]
+    pub description: Option<String>,
     /// The language of the channel.
     pub language: Option<String>,
     /// The copyright notice for the channel.
@@ -118,10 +121,10 @@ impl Channel {
     ///
     /// let mut channel = Channel::default();
     /// channel.set_title("Channel Title");
-    /// assert_eq!(channel.title(), "Channel Title");
+    /// assert_eq!(channel.title(), Some("Channel Title"));
     /// ```
-    pub fn title(&self) -> &str {
-        self.title.as_str()
+    pub fn title(&self) -> Option<&str> {
+        self.title.as_deref()
     }
 
     /// Set the title of this channel.
@@ -132,13 +135,13 @@ impl Channel {
     /// use rss::Channel;
     ///
     /// let mut channel = Channel::default();
-    /// channel.set_title("Channel Title");
+    /// channel.set_title("Channel Title".to_string());
     /// ```
     pub fn set_title<V>(&mut self, title: V)
     where
         V: Into<String>,
     {
-        self.title = title.into();
+        self.title = Some(title.into());
     }
 
     /// Return the URL for the website corresponding to this channel.
@@ -150,10 +153,10 @@ impl Channel {
     ///
     /// let mut channel = Channel::default();
     /// channel.set_link("http://example.com");
-    /// assert_eq!(channel.link(), "http://example.com");
+    /// assert_eq!(channel.link(), Some("http://example.com"));
     /// ```
-    pub fn link(&self) -> &str {
-        self.link.as_str()
+    pub fn link(&self) -> Option<&str> {
+        self.link.as_deref()
     }
 
     /// Set the URL for the website corresponding to this channel.
@@ -164,13 +167,13 @@ impl Channel {
     /// use rss::Channel;
     ///
     /// let mut channel = Channel::default();
-    /// channel.set_link("http://example.com");
+    /// channel.set_link("http://example.com".to_string());
     /// ```
     pub fn set_link<V>(&mut self, link: V)
     where
         V: Into<String>,
     {
-        self.link = link.into();
+        self.link = Some(link.into());
     }
 
     /// Return the description of this channel.
@@ -182,10 +185,10 @@ impl Channel {
     ///
     /// let mut channel = Channel::default();
     /// channel.set_description("Channel description");
-    /// assert_eq!(channel.description(), "Channel description");
+    /// assert_eq!(channel.description(), Some("Channel description"));
     /// ```
-    pub fn description(&self) -> &str {
-        self.description.as_str()
+    pub fn description(&self) -> Option<&str> {
+        self.description.as_deref()
     }
 
     /// Set the description of this channel.
@@ -196,13 +199,13 @@ impl Channel {
     /// use rss::Channel;
     ///
     /// let mut channel = Channel::default();
-    /// channel.set_description("Channel description");
+    /// channel.set_description("Channel description".to_string());
     /// ```
     pub fn set_description<V>(&mut self, description: V)
     where
         V: Into<String>,
     {
-        self.description = description.into();
+        self.description = Some(description.into());
     }
 
     /// Return the language of this channel.
@@ -1228,18 +1231,21 @@ impl Channel {
                         channel.items.push(item);
                     }
                     "title" => {
-                        if let Some(content) = element_text(reader)? {
-                            channel.title = content;
+                        let content = element_text_with_empty(reader)?;
+                        if !content.is_empty() || channel.title.is_none() {
+                            channel.title = Some(content);
                         }
                     }
                     "link" => {
-                        if let Some(content) = element_text(reader)? {
-                            channel.link = content;
+                        let content = element_text_with_empty(reader)?;
+                        if !content.is_empty() || channel.link.is_none() {
+                            channel.link = Some(content);
                         }
                     }
                     "description" => {
-                        if let Some(content) = element_text(reader)? {
-                            channel.description = content;
+                        let content = element_text_with_empty(reader)?;
+                        if !content.is_empty() || channel.description.is_none() {
+                            channel.description = Some(content);
                         }
                     }
                     "language" => channel.language = element_text(reader)?,
@@ -1352,9 +1358,15 @@ impl ToXml for Channel {
 
         writer.write_event(Event::Start(BytesStart::new(name)))?;
 
-        writer.write_text_element("title", &self.title)?;
-        writer.write_text_element("link", &self.link)?;
-        writer.write_text_element("description", &self.description)?;
+        if let Some(title) = self.title.as_ref() {
+            writer.write_text_element("title", title)?;
+        }
+        if let Some(link) = self.link.as_ref() {
+            writer.write_text_element("link", link)?;
+        }
+        if let Some(description) = self.description.as_ref() {
+            writer.write_text_element("description", description)?;
+        }
 
         if let Some(language) = self.language.as_ref() {
             writer.write_text_element("language", language)?;

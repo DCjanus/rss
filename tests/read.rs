@@ -5,7 +5,7 @@ use std::collections::BTreeMap;
 use rss::extension::dublincore::DublinCoreExtension;
 use rss::extension::syndication;
 use rss::extension::Extension;
-use rss::Channel;
+use rss::{Channel, Image, Item, TextInput};
 
 fn get_extension_values<'a>(
     map: &'a BTreeMap<String, Vec<Extension>>,
@@ -20,17 +20,19 @@ fn read_rss090() {
     let input = include_str!("data/rss090.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.title(), "Mozilla Dot Org");
-    assert_eq!(channel.link(), "http://www.mozilla.org");
+    assert_eq!(channel.title(), Some("Mozilla Dot Org"));
+    assert_eq!(channel.link(), Some("http://www.mozilla.org"));
     assert_eq!(
-        channel.description().lines().collect::<Vec<_>>(),
-        vec!["the Mozilla Organization", "      web site"]
+        channel
+            .description()
+            .map(|value| value.lines().collect::<Vec<_>>()),
+        Some(vec!["the Mozilla Organization", "      web site"])
     );
 
     let image = channel.image().unwrap();
-    assert_eq!(image.title(), "Mozilla");
-    assert_eq!(image.url(), "http://www.mozilla.org/images/moz.gif");
-    assert_eq!(image.link(), "http://www.mozilla.org");
+    assert_eq!(image.title(), Some("Mozilla"));
+    assert_eq!(image.url(), Some("http://www.mozilla.org/images/moz.gif"));
+    assert_eq!(image.link(), Some("http://www.mozilla.org"));
 
     assert_eq!(channel.items().len(), 5);
 
@@ -44,9 +46,12 @@ fn read_rss091() {
     let input = include_str!("data/rss091.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.title(), "WriteTheWeb");
-    assert_eq!(channel.link(), "http://writetheweb.com");
-    assert_eq!(channel.description(), "News for web users that write back");
+    assert_eq!(channel.title(), Some("WriteTheWeb"));
+    assert_eq!(channel.link(), Some("http://writetheweb.com"));
+    assert_eq!(
+        channel.description(),
+        Some("News for web users that write back")
+    );
     assert_eq!(channel.language(), Some("en-us"));
     assert_eq!(
         channel.copyright(),
@@ -56,12 +61,12 @@ fn read_rss091() {
     assert_eq!(channel.webmaster(), Some("webmaster@writetheweb.com"));
 
     let image = channel.image().unwrap();
-    assert_eq!(image.title(), "WriteTheWeb");
+    assert_eq!(image.title(), Some("WriteTheWeb"));
     assert_eq!(
         image.url(),
-        "http://writetheweb.com/images/mynetscape88.gif"
+        Some("http://writetheweb.com/images/mynetscape88.gif")
     );
-    assert_eq!(image.link(), "http://writetheweb.com");
+    assert_eq!(image.link(), Some("http://writetheweb.com"));
     assert_eq!(image.width(), Some("88"));
     assert_eq!(image.height(), Some("31"));
     assert_eq!(
@@ -88,17 +93,19 @@ fn read_rss092() {
     let input = include_str!("data/rss092.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.title(), "Dave Winer: Grateful Dead");
+    assert_eq!(channel.title(), Some("Dave Winer: Grateful Dead"));
     assert_eq!(
         channel.link(),
-        "http://www.scripting.com/blog/categories/gratefulDead.html"
+        Some("http://www.scripting.com/blog/categories/gratefulDead.html")
     );
     assert_eq!(
         channel.description(),
-        "A high-fidelity Grateful Dead song every day. This is where we're experimenting \
+        Some(
+            "A high-fidelity Grateful Dead song every day. This is where we're experimenting \
          with enclosures on RSS news items that download when you're not using your \
          computer. If it works (it will) it will be the end of the Click-And-Wait \
          multimedia experience on the Internet."
+        )
     );
     assert_eq!(
         channel.last_build_date(),
@@ -152,26 +159,34 @@ fn read_rss1() {
     let input = include_str!("data/rss1.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.title(), "XML.com");
-    assert_eq!(channel.link(), "http://xml.com/pub");
+    assert_eq!(channel.title(), Some("XML.com"));
+    assert_eq!(channel.link(), Some("http://xml.com/pub"));
     assert_eq!(
-        channel.description().lines().collect::<Vec<_>>(),
-        vec![
+        channel
+            .description()
+            .map(|value| value.lines().collect::<Vec<_>>()),
+        Some(vec![
             "XML.com features a rich mix of information and services ",
             "      for the XML community."
-        ]
+        ])
     );
 
     let image = channel.image().unwrap();
-    assert_eq!(image.title(), "XML.com");
-    assert_eq!(image.url(), "http://xml.com/universal/images/xml_tiny.gif");
-    assert_eq!(image.link(), "http://www.xml.com");
+    assert_eq!(image.title(), Some("XML.com"));
+    assert_eq!(
+        image.url(),
+        Some("http://xml.com/universal/images/xml_tiny.gif")
+    );
+    assert_eq!(image.link(), Some("http://www.xml.com"));
 
     let text_input = channel.text_input().unwrap();
-    assert_eq!(text_input.title(), "Search XML.com");
-    assert_eq!(text_input.description(), "Search XML.com's XML collection");
-    assert_eq!(text_input.name(), "s");
-    assert_eq!(text_input.link(), "http://search.xml.com");
+    assert_eq!(text_input.title(), Some("Search XML.com"));
+    assert_eq!(
+        text_input.description(),
+        Some("Search XML.com's XML collection")
+    );
+    assert_eq!(text_input.name(), Some("s"));
+    assert_eq!(text_input.link(), Some("http://search.xml.com"));
 
     assert_eq!(channel.items().len(), 2);
 
@@ -196,9 +211,9 @@ fn read_channel() {
     let input = include_str!("data/channel.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.title(), "Title");
-    assert_eq!(channel.link(), "http://example.com/");
-    assert_eq!(channel.description(), "Description");
+    assert_eq!(channel.title(), Some("Title"));
+    assert_eq!(channel.link(), Some("http://example.com/"));
+    assert_eq!(channel.description(), Some("Description"));
     assert_eq!(channel.language(), Some("en-US"));
     assert_eq!(channel.managing_editor(), Some("editor@example.com"));
     assert_eq!(channel.webmaster(), Some("webmaster@example.com"));
@@ -433,9 +448,15 @@ fn read_image() {
     let input = include_str!("data/image.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.image().unwrap().title(), "Title");
-    assert_eq!(channel.image().unwrap().url(), "http://example.org/url");
-    assert_eq!(channel.image().unwrap().link(), "http://example.org/link");
+    assert_eq!(channel.image().unwrap().title(), Some("Title"));
+    assert_eq!(
+        channel.image().unwrap().url(),
+        Some("http://example.org/url")
+    );
+    assert_eq!(
+        channel.image().unwrap().link(),
+        Some("http://example.org/link")
+    );
     assert_eq!(channel.image().unwrap().width(), Some("100"));
     assert_eq!(channel.image().unwrap().height(), Some("200"));
     assert_eq!(channel.image().unwrap().description(), Some("Description"));
@@ -446,7 +467,7 @@ fn read_mixed_content() {
     let input = include_str!("data/mixed_content.xml");
     let channel = input.parse::<Channel>().expect("failed to parse xml");
 
-    assert_eq!(channel.title(), "Title");
+    assert_eq!(channel.title(), Some("Title"));
 }
 
 #[test]
@@ -468,10 +489,10 @@ fn read_textinput() {
     let channel = input.parse::<Channel>().expect("failed to parse xml");
     let text_input = channel.text_input().expect("textinput missing");
 
-    assert_eq!(text_input.title(), "Title");
-    assert_eq!(text_input.name(), "Name");
-    assert_eq!(text_input.link(), "http://example.com/");
-    assert_eq!(text_input.description(), "Description");
+    assert_eq!(text_input.title(), Some("Title"));
+    assert_eq!(text_input.name(), Some("Name"));
+    assert_eq!(text_input.link(), Some("http://example.com/"));
+    assert_eq!(text_input.description(), Some("Description"));
 }
 
 #[test]
@@ -940,7 +961,7 @@ fn read_escaped() {
         </rss>
     "#;
     let channel = input.parse::<Channel>().unwrap();
-    assert_eq!("My <feed>", channel.title());
+    assert_eq!(Some("My <feed>"), channel.title());
     let output = channel.to_string();
     let parsed_channel = output.parse::<Channel>().unwrap();
     assert_eq!(channel, parsed_channel);
@@ -964,7 +985,7 @@ fn read_multiple_links() {
         </rss>
     "#;
     let channel = input.parse::<Channel>().unwrap();
-    assert_eq!(channel.link(), "https://www.coindesk.com");
+    assert_eq!(channel.link(), Some("https://www.coindesk.com"));
     assert_eq!(channel.items[0].link.as_ref().unwrap(), "https://www.coindesk.com/policy/2023/01/14/doj-objects-to-ftxs-choice-of-lawyers-citing-conflict-of-interest/?utm_medium=referral&utm_source=rss&utm_campaign=headlines");
 }
 
@@ -998,4 +1019,66 @@ fn read_local_namespace_hijack() {
 
     assert!(channel.dublin_core_ext().is_some());
     assert_eq!(channel.dublin_core_ext().unwrap().creators, vec!["Creator"]);
+}
+
+#[test]
+fn empty_required_elements_are_distinct_from_missing_elements() {
+    let input = r#"
+        <rss version="2.0">
+            <channel>
+                <title/>
+                <link/>
+                <description/>
+                <image>
+                    <url/>
+                    <title/>
+                    <link/>
+                </image>
+                <textInput>
+                    <title/>
+                    <description/>
+                    <name/>
+                    <link/>
+                </textInput>
+                <item>
+                    <title/>
+                    <description/>
+                </item>
+            </channel>
+        </rss>
+    "#;
+    let channel = input.parse::<Channel>().unwrap();
+    let reparsed = channel.to_string().parse::<Channel>().unwrap();
+    assert_eq!(reparsed, channel);
+
+    assert_eq!(channel.title.as_deref(), Some(""));
+    assert_eq!(channel.link.as_deref(), Some(""));
+    assert_eq!(channel.description.as_deref(), Some(""));
+    assert_eq!(Channel::default().title, None);
+    assert_eq!(Channel::default().link, None);
+    assert_eq!(Channel::default().description, None);
+
+    let image = channel.image.unwrap();
+    assert_eq!(image.url.as_deref(), Some(""));
+    assert_eq!(image.title.as_deref(), Some(""));
+    assert_eq!(image.link.as_deref(), Some(""));
+    assert_eq!(Image::default().url, None);
+    assert_eq!(Image::default().title, None);
+    assert_eq!(Image::default().link, None);
+
+    let text_input = channel.text_input.unwrap();
+    assert_eq!(text_input.title.as_deref(), Some(""));
+    assert_eq!(text_input.description.as_deref(), Some(""));
+    assert_eq!(text_input.name.as_deref(), Some(""));
+    assert_eq!(text_input.link.as_deref(), Some(""));
+    assert_eq!(TextInput::default().title, None);
+    assert_eq!(TextInput::default().description, None);
+    assert_eq!(TextInput::default().name, None);
+    assert_eq!(TextInput::default().link, None);
+
+    let item = &channel.items[0];
+    assert_eq!(item.title.as_deref(), Some(""));
+    assert_eq!(item.description.as_deref(), Some(""));
+    assert_eq!(Item::default().title, None);
+    assert_eq!(Item::default().description, None);
 }

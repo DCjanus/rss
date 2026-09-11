@@ -28,7 +28,7 @@ use crate::extension::ExtensionMap;
 use crate::guid::Guid;
 use crate::source::Source;
 use crate::toxml::{ToXml, WriterExt};
-use crate::util::{decode, element_text, skip};
+use crate::util::{decode, element_text, element_text_with_empty, skip};
 
 /// Represents an item in an RSS feed.
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -635,13 +635,13 @@ impl Item {
                         let source = Source::from_xml(reader, element.attributes())?;
                         item.source = Some(source);
                     }
-                    "title" => item.title = element_text(reader)?,
+                    "title" => item.title = Some(element_text_with_empty(reader)?),
                     "link" => {
                         if let Some(link) = element_text(reader)?.filter(|text| !text.is_empty()) {
                             item.link = Some(link);
                         }
                     }
-                    "description" => item.description = element_text(reader)?,
+                    "description" => item.description = Some(element_text_with_empty(reader)?),
                     "author" => item.author = element_text(reader)?,
                     "comments" => item.comments = element_text(reader)?,
                     "pubDate" => item.pub_date = element_text(reader)?,

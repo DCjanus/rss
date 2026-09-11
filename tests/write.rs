@@ -361,8 +361,8 @@ fn test_escape() {
 #[test]
 fn test_write_link() {
     let channel = Channel {
-        title: "Channel title".into(),
-        link: "http://example.com/feed".into(),
+        title: Some("Channel title".into()),
+        link: Some("http://example.com/feed".into()),
         items: vec![Item {
             link: Some("http://example.com/post1".into()),
             ..Default::default()
@@ -378,7 +378,6 @@ fn test_write_link() {
     <channel>
         <title>Channel title</title>
         <link>http://example.com/feed</link>
-        <description></description>
         <item>
             <link>http://example.com/post1</link>
         </item>
@@ -391,7 +390,7 @@ fn test_write_link() {
 #[test]
 fn test_atom_write_channel() {
     let channel = Channel {
-        title: "Channel title".into(),
+        title: Some("Channel title".into()),
         atom_ext: Some(rss::extension::atom::AtomExtension {
             links: vec![rss::extension::atom::Link {
                 rel: "self".into(),
@@ -409,8 +408,6 @@ fn test_atom_write_channel() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Channel title</title>
-        <link></link>
-        <description></description>
         <atom:link href="http://example.com/feed" rel="self"/>
     </channel>
 </rss>"#
@@ -421,7 +418,7 @@ fn test_atom_write_channel() {
 #[test]
 fn test_atom_write_item() {
     let channel = Channel {
-        title: "Channel title".into(),
+        title: Some("Channel title".into()),
         items: vec![Item {
             link: Some("http://example.com/post1".into()),
             atom_ext: Some(rss::extension::atom::AtomExtension {
@@ -443,8 +440,6 @@ fn test_atom_write_item() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Channel title</title>
-        <link></link>
-        <description></description>
         <item>
             <link>http://example.com/post1</link>
             <atom:link href="http://example.com/post1" rel="related"/>
